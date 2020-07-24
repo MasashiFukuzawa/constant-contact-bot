@@ -1,3 +1,3 @@
 export interface DearestRepositoryInterface {
-  getNames(): string[][];
+  getAllDearestsData(): any[][];
 }
