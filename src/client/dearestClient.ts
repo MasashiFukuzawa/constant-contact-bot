@@ -6,7 +6,7 @@ export class DearestClient implements DearestClientInterface {
     private dearestApplicationService: DearestApplicationServiceInterface
   ) {}
 
-  postMessage(): void {
+  postMessages(): void {
     const dearests = this.dearestApplicationService.getNames();
     dearests.forEach((d, i) => {
       if (i > 4) return;
