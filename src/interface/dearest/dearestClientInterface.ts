@@ -1,3 +1,3 @@
 export interface DearestClientInterface {
-  postMessage(): void;
+  postMessages(): void;
 }
