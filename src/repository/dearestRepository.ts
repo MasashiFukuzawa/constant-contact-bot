@@ -9,7 +9,7 @@ export class DearestRepository implements DearestRepositoryInterface {
     );
     const ws: Sheet = ss.getSheetByName("dearests");
     const lastRow: number = ws.getLastRow();
-    const allDearests: string[][] = ws.getRange(2, 2, lastRow - 1, 1).getValues();
-    return allDearests;
+    const names: string[][] = ws.getRange(2, 2, lastRow - 1, 1).getValues();
+    return names;
   }
 }

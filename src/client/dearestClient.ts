@@ -1,7 +1,7 @@
 import { DearestApplicationServiceInterface } from '../interface/dearest/dearestApplicationServiceInterface';
 import { DearestClientInterface } from '../interface/dearest/dearestClientInterface';
 
-export class Client implements DearestClientInterface {
+export class DearestClient implements DearestClientInterface {
   constructor(
     private dearestApplicationService: DearestApplicationServiceInterface
   ) {}
@@ -10,8 +10,7 @@ export class Client implements DearestClientInterface {
     const dearests = this.dearestApplicationService.getNames();
     dearests.forEach((d, i) => {
       if (i > 4) return;
-      const dearest = d[0];
-      UrlFetchApp.fetch(LineConstants.PUSH_URL, this.setOptions(dearest));
+      UrlFetchApp.fetch(LineConstants.PUSH_URL, this.setOptions(d));
     });
   }
 

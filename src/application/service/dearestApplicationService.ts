@@ -6,7 +6,8 @@ export class DearestApplicationService implements DearestApplicationServiceInter
     private readonly dearestRepository: DearestRepositoryInterface,
   ) {}
 
-  getNames(): string[][] {
-    return this.dearestRepository.getNames();
+  getNames(): string[] {
+    const names = this.dearestRepository.getNames().map((e) => e[0]).filter((e) => !!e);
+    return names;
   }
 }
