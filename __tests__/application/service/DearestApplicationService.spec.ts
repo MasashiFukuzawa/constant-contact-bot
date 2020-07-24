@@ -11,7 +11,7 @@ describe('DearestApplicationService', () => {
         ['Katsuki Bakugo'],
         ['Ochako Uraraka'],
         ['Shoto Todoroki'],
-      ])
+      ]);
     const names = das.getNames();
     expect(names[0]).toBe('Izuku Midoriya');
     expect(names[1]).toBe('Katsuki Bakugo');
