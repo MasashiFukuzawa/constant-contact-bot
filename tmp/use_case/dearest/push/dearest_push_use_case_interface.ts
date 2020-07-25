@@ -1,1 +1,3 @@
-export interface DearestPushUseCaseInterface {}
+export interface DearestPushUseCaseInterface {
+  handle(): void;
+}
