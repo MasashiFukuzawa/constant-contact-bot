@@ -1,1 +1,3 @@
-export class DearestRepositoryInterface {}
+export interface DearestRepositoryInterface {
+  getAll(): any[][];
+}
