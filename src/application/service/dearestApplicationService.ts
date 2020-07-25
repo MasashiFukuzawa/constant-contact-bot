@@ -1,13 +1,9 @@
+import { Dearest } from '../../types/dearest';
 import { DearestApplicationServiceInterface } from '../../interface/dearest/dearestApplicationServiceInterface';
 import { DearestRepositoryInterface } from '../../interface/dearest/deareastRepositoryInterface';
-
-interface dearest {
-  id: number;
-  name: string;
-  type_id: number;
-  notification_period_id: number;
-  last_contacted_date: Date;
-}
+import { NotificationPeriod } from '../../types/notification_period';
+import { NotificationPeriodApplicationService } from '../../application/service/NotificationPeriodApplicationService';
+import { NotificationPeriodRepository } from '../../repository/NotificationPeriodsRepository';
 
 export class DearestApplicationService implements DearestApplicationServiceInterface {
   constructor(
@@ -21,7 +17,7 @@ export class DearestApplicationService implements DearestApplicationServiceInter
     return targetData.map((d) => d.name);
   }
 
-  private convertToHash(rawData: any[][]): dearest[] {
+  private convertToHash(rawData: any[][]): Dearest[] {
     return rawData.map((d) => {
       return {
         id: d[0],
@@ -33,13 +29,18 @@ export class DearestApplicationService implements DearestApplicationServiceInter
     });
   }
 
-  private filterDearestData(allDearestsData: dearest[]): dearest[] {
+  private filterDearestData(allDearestsData: Dearest[]): Dearest[] {
     const now = Moment.moment();
     return allDearestsData.filter((d) => {
-      const notificationPeriod = { term: 3, unit: 'months' }; // TODO
+      const notificationPeriod = this.getNotificationPeriod(d.notification_period_id);
       const targetDate: Date = now.subtract(notificationPeriod.term, notificationPeriod.unit).toDate();
-      console.log(`${d.last_contacted_date < targetDate}`)
       return d.last_contacted_date < targetDate;
     })
+  }
+
+  private getNotificationPeriod(notificationPeriodId: number): NotificationPeriod {
+    const notificationPeriodRepository = new NotificationPeriodRepository();
+    const notificationPeriodApplicationService = new NotificationPeriodApplicationService(notificationPeriodRepository);
+    return notificationPeriodApplicationService.getNotificationPeriod(notificationPeriodId);
   }
 }
