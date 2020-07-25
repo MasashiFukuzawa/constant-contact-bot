@@ -30,8 +30,8 @@ export class DearestApplicationService implements DearestApplicationServiceInter
   }
 
   private filterDearestData(allDearestsData: Dearest[]): Dearest[] {
-    const now = Moment.moment();
     return allDearestsData.filter((d) => {
+      const now = Moment.moment();
       const notificationPeriod = this.getNotificationPeriod(d.notification_period_id);
       const targetDate: Date = now.subtract(notificationPeriod.term, notificationPeriod.unit).toDate();
       return d.last_contacted_date < targetDate;

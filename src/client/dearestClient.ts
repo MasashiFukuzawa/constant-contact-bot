@@ -8,8 +8,7 @@ export class DearestClient implements DearestClientInterface {
 
   postMessages(): void {
     const dearests = this.dearestApplicationService.getNames();
-    dearests.forEach((d, i) => {
-      if (i > 4) return;
+    dearests.forEach((d) => {
       UrlFetchApp.fetch(LineConstants.PUSH_URL, this.setOptions(d));
     });
   }
@@ -31,7 +30,7 @@ export class DearestClient implements DearestClientInterface {
         "altText": "久しぶりに大切な人に連絡を取りましょう\uDBC0\uDC40",
         "template": {
           "type": "confirm",
-          "text": `${dearest}と3ヶ月以上連絡を取っていないようです。\n久しぶりに連絡を取ってみませんか？`,
+          "text": `久しぶりに ${dearest} に連絡を取ってみませんか？`,
           "actions": [
             {
               "type": "message",
