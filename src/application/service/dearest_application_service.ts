@@ -1,9 +1,9 @@
 import { Dearest } from '../../types/dearest';
-import { DearestApplicationServiceInterface } from '../../interface/dearest/dearestApplicationServiceInterface';
-import { DearestRepositoryInterface } from '../../interface/dearest/deareastRepositoryInterface';
+import { DearestApplicationServiceInterface } from '../../interface/dearest/dearest_application_serviceInterface';
+import { DearestRepositoryInterface } from '../../interface/dearest/deareast_repository_interface';
 import { NotificationPeriod } from '../../types/notification_period';
-import { NotificationPeriodApplicationService } from '../../application/service/NotificationPeriodApplicationService';
-import { NotificationPeriodRepository } from '../../repository/NotificationPeriodsRepository';
+import { NotificationPeriodApplicationService } from './notification_period_application_service';
+import { NotificationPeriodRepository } from '../../repository/notification_periods_repository';
 
 export class DearestApplicationService implements DearestApplicationServiceInterface {
   constructor(

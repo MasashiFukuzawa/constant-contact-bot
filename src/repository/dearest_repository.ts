@@ -1,4 +1,4 @@
-import { DearestRepositoryInterface } from '../../src/interface/dearest/deareastRepositoryInterface';
+import { DearestRepositoryInterface } from '../interface/dearest/deareast_repository_interface';
 import Spreadsheet = GoogleAppsScript.Spreadsheet.Spreadsheet;
 import Sheet = GoogleAppsScript.Spreadsheet.Sheet;
 

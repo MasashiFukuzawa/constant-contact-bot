@@ -1,5 +1,5 @@
-import { DearestApplicationServiceInterface } from '../interface/dearest/dearestApplicationServiceInterface';
-import { DearestClientInterface } from '../interface/dearest/dearestClientInterface';
+import { DearestApplicationServiceInterface } from '../interface/dearest/dearest_application_serviceInterface';
+import { DearestClientInterface } from '../interface/dearest/dearest_client_interface';
 
 export class DearestClient implements DearestClientInterface {
   constructor(

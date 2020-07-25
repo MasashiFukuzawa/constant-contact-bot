@@ -1,4 +1,4 @@
-import { NotificationPeriodRepository } from '../../src/repository/NotificationPeriodsRepository';
+import { NotificationPeriodRepository } from '../../src/repository/notification_periods_repository';
 
 SpreadsheetApp.openById = jest.fn(() => ({
   getSheetByName: jest.fn(() => ({

@@ -1,6 +1,6 @@
-import { DearestRepository } from './repository/dearestRepository';
-import { DearestApplicationService } from './application/service/dearestApplicationService';
-import { DearestClient } from './client/dearestClient';
+import { DearestRepository } from './repository/dearest_repository';
+import { DearestApplicationService } from './application/service/dearest_application_service';
+import { DearestClient } from './client/dearest_client';
 
 function main(): void {
   const dearestRepository = new DearestRepository();

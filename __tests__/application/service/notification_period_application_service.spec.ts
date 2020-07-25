@@ -1,5 +1,5 @@
-import { NotificationPeriodApplicationService } from '../../../src/application/service/NotificationPeriodApplicationService';
-import { NotificationPeriodRepository } from '../../../src/repository/NotificationPeriodsRepository';
+import { NotificationPeriodApplicationService } from '../../../src/application/service/notification_period_application_service';
+import { NotificationPeriodRepository } from '../../../src/repository/notification_periods_repository';
 
 Moment.moment = jest.fn(() => ({
   subtract: jest.fn(() => ({

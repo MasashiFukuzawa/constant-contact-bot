@@ -1,4 +1,4 @@
-import { DearestRepository } from '../../src/repository/dearestRepository';
+import { DearestRepository } from '../../src/repository/dearest_repository';
 
 SpreadsheetApp.openById = jest.fn(() => ({
   getSheetByName: jest.fn(() => ({
