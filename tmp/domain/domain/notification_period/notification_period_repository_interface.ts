@@ -1,1 +1,3 @@
-export class NotificationPeriodRepositoryInterface {}
+export class NotificationPeriodRepositoryInterface {
+  getAll(): any[][];
+}
