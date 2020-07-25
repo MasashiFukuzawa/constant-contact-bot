@@ -6,5 +6,5 @@ function main(): void {
   const dearestRepository = new DearestRepository();
   const dearestApplicationService = new DearestApplicationService(dearestRepository);
   const dearestClient = new DearestClient(dearestApplicationService);
-  dearestClient.postMessage();
+  dearestClient.postMessages();
 };
