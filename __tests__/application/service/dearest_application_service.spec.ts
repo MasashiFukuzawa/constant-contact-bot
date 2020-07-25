@@ -1,6 +1,6 @@
-import { DearestApplicationService } from '../../../src/application/service/dearestApplicationService';
-import { DearestRepository } from '../../../src/repository/dearestRepository';
-import { NotificationPeriodApplicationService } from '../../../src/application/service/NotificationPeriodApplicationService';
+import { DearestApplicationService } from '../../../src/application/service/dearest_application_service';
+import { DearestRepository } from '../../../src/repository/dearest_repository';
+import { NotificationPeriodApplicationService } from '../../../src/application/service/notification_period_application_service';
 
 Moment.moment = jest.fn(() => ({
   subtract: jest.fn(() => ({
