@@ -1,16 +1,9 @@
+import { LineAuthorization } from "../../../authorization/line_authorization";
+
 const PROVIDER_NAME = 'LINE';
 const PUSH_URL = "https://api.line.me/v2/bot/message/push";
 
 export class LineDearestPushView {
-  private accessToken: string | null;
-  private headers: {[key: string]: string} | null;
-  private userId: string | null;
-  constructor() {
-    this.accessToken = null;
-    this.headers = null;
-    this.userId = null;
-  }
-
   pushMessages(names: string[]): void {
     names.forEach((name) => {
       UrlFetchApp.fetch(PUSH_URL, this.setOptions(name));
@@ -25,14 +18,14 @@ export class LineDearestPushView {
     const postData = this.setPostData(name);
     return {
       "method": "post",
-      "headers": this.getHeaders(),
+      "headers": new LineAuthorization().getHeaders(),
       "payload": JSON.stringify(postData)
     };
   }
 
   private setPostData(name: string): object {
     return {
-      "to": this.getUserId(),
+      "to": new LineAuthorization().getUserId(),
       "messages": [{
         "type": "template",
         "altText": "久しぶりに大切な人に連絡を取りましょう\uDBC0\uDC40",
@@ -55,38 +48,5 @@ export class LineDearestPushView {
         },
       }]
     };
-  }
-
-  private getAccessToken(): string {
-    if (this.accessToken) return this.accessToken;
-    this.setAccessToken();
-    return this.accessToken;
-  }
-
-  private setAccessToken(): void {
-    this.accessToken = PropertiesService.getScriptProperties().getProperty("ACCESS_TOKEN");
-  }
-
-  private getHeaders(): {[key: string]: string} {
-    if (this.headers) return this.headers;
-    this.setHeaders();
-    return this.headers;
-  }
-
-  private setHeaders(): void {
-    this.headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.getAccessToken()}`
-    };
-  }
-
-  private getUserId(): string {
-    if (this.userId) return this.userId;
-    this.setUserId();
-    return this.userId;
-  }
-
-  private setUserId(): void {
-    this.userId = PropertiesService.getScriptProperties().getProperty("USER_ID");
   }
 }

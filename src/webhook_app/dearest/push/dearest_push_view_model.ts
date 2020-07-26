@@ -1,4 +1,4 @@
-import { LineDearestPushView } from "./line_view/line_dearest_push_view";
+import { LineDearestPushView } from "./views/line_dearest_push_view";
 
 export class DearestPushViewModel {
   // 最初は、Subscriberという抽象クラスを用意していた＆subscribersはベタ書きしていなかったが、
