@@ -69,7 +69,9 @@ export class DearestPushInteractor implements DearestPushUseCaseInterface {
   }
 
   private selectNotificationPeriodData(
-    mappedNotificationPeriodsData: NotificationPeriod[], notificationPeriodId: number): NotificationPeriod {
+    mappedNotificationPeriodsData: NotificationPeriod[],
+    notificationPeriodId: number
+  ): NotificationPeriod {
     const selectedData = mappedNotificationPeriodsData.filter((d) => {
       return d.getId().toNumber() === notificationPeriodId;
     })[0];

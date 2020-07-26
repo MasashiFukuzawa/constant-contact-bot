@@ -5,13 +5,18 @@ import { DearestNotificationPeriodId } from './value_object/dearest_notification
 import { DearestLastContactedDate } from './value_object/dearest_last_contacted_date';
 
 export class Dearest {
-  constructor(
-    private id: DearestId,
-    private name: DearestName,
-    private typeId: DearestTypeId,
-    private notificationPeriodId: DearestNotificationPeriodId,
-    private lastContactedDate: DearestLastContactedDate
-  ) {}
+  private id: DearestId;
+  private name: DearestName;
+  private typeId: DearestTypeId;
+  private notificationPeriodId: DearestNotificationPeriodId;
+  private lastContactedDate: DearestLastContactedDate;
+  constructor(id: number, name: string, typeId: number, notificationPeriodId: number, lastContactedDate: Date) {
+    this.id = new DearestId(id);
+    this.name = new DearestName(name);
+    this.typeId = new DearestTypeId(typeId);
+    this.notificationPeriodId = new DearestNotificationPeriodId(notificationPeriodId);
+    this.lastContactedDate = new DearestLastContactedDate(lastContactedDate);
+  }
 
   getId(): DearestId {
     return this.id;

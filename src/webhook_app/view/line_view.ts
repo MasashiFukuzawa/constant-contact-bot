@@ -1,10 +1,12 @@
-import { Subscriber } from './subscriber'
-
-export class LineView extends Subscriber {
+export class LineView {
   pushMessages(names: string[]): void {
     names.forEach((name) => {
       UrlFetchApp.fetch(Line.PUSH_URL, this.setOptions(name));
     });
+  }
+
+  toString(): string {
+    return Line.PROVIDER_NAME;
   }
 
   private setOptions(name: string): object {

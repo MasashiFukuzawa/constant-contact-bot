@@ -1,4 +1,4 @@
-module LineConstants {
+module Line {
   const ACCESS_TOKEN: string = PropertiesService.getScriptProperties().getProperty(
     "ACCESS_TOKEN"
   );
@@ -10,4 +10,5 @@ module LineConstants {
   export const USER_ID = PropertiesService.getScriptProperties().getProperty(
     "USER_ID"
   );
+  export const PROVIDER_NAME = 'LINE';
 }
