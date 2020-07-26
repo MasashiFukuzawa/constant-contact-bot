@@ -4,6 +4,7 @@ import { NotificationPeriodRepositoryInterface } from "../../domain/notification
 import { DearestPushPresenterInterface } from "../../../use_case/dearest/push/dearest_push_presenter_interface";
 import { Dearest } from "../../domain/dearest/dearest";
 import { NotificationPeriod } from "../../domain/notification_period/notification_period";
+import { DearestInteractorCommon } from "./common/dearest_interactor_common";
 
 export class DearestPushInteractor implements DearestPushUseCaseInterface {
   constructor(
@@ -14,25 +15,13 @@ export class DearestPushInteractor implements DearestPushUseCaseInterface {
 
   handle(): void {
     const rawDearestData = this.dearestRepository.getAll();
-    const mappedDearestsData = this.mapRawDearestData(rawDearestData);
+    const mappedDearestsData = DearestInteractorCommon.mapRawDearestData(rawDearestData);
 
     const rawNotificationPeriodData = this.notificationPeriodRepository.getAll();
-    const mappedNotificationPeriodsData = this.mapRawNotificationPeriodData(rawNotificationPeriodData);
+    const mappedNotificationPeriodsData = DearestInteractorCommon.mapRawNotificationPeriodData(rawNotificationPeriodData);
 
     const names = this.extractDearestNames(mappedDearestsData, mappedNotificationPeriodsData);
     this.dearestPushPresenter.pushMessages(names);
-  }
-
-  private mapRawDearestData(rawData: any[][]): Dearest[] {
-    return rawData.map((d) => {
-      return new Dearest(d[0], d[1], d[2], d[3], d[4]);
-    });
-  }
-
-  private mapRawNotificationPeriodData(rawData: any[][]): NotificationPeriod[] {
-    return rawData.map((d) => {
-      return new NotificationPeriod(d[0], d[1], d[2]);
-    });
   }
 
   private extractDearestNames(
