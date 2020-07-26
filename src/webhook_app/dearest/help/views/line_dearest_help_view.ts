@@ -3,19 +3,17 @@ import { LineAuthorization } from "../../../authorization/line_authorization";
 const PROVIDER_NAME = 'LINE';
 const PUSH_URL = "https://api.line.me/v2/bot/message/push";
 
-export class LineDearestPushView {
-  pushMessages(names: string[]): void {
-    names.forEach((name) => {
-      UrlFetchApp.fetch(PUSH_URL, this.setOptions(name));
-    });
+export class LineDearestHelpView {
+  showHowToUse(helpMessage: string): void {
+    UrlFetchApp.fetch(PUSH_URL, this.setOptions(helpMessage));
   }
 
   toString(): string {
     return PROVIDER_NAME;
   }
 
-  private setOptions(name: string): object {
-    const postData = this.setPostData(name);
+  private setOptions(helpMessage: string): object {
+    const postData = this.setPostData(helpMessage);
     return {
       "method": "post",
       "headers": new LineAuthorization().getHeaders(),
@@ -23,26 +21,25 @@ export class LineDearestPushView {
     };
   }
 
-  private setPostData(name: string): object {
+  private setPostData(helpMessage: string): object {
     return {
       "to": new LineAuthorization().getUserId(),
       "messages": [{
         "type": "template",
-        "altText": "久しぶりに大切な人に連絡を取りましょう\uDBC0\uDC40",
+        "altText": "How To Use LINE Commands",
         "template": {
           "type": "confirm",
-          "text": `久しぶりに ${name} に連絡を取ってみませんか？`,
+          "text": helpMessage,
           "actions": [
             {
               "type": "message",
-              "label": "Thanks",
+              "label": "Yes",
               "text": "See you again!"
             },
             {
-              "type": "postback",
-              "label": "Update",
-              "data": `name=${name}`,
-              "showText": "Updating database..."
+              "type": "message",
+              "label": "No",
+              "text": "Oops...",
             }
           ],
         },
