@@ -1,3 +1,5 @@
+import { NotificationPeriod } from "./notification_period";
+
 export class NotificationPeriodRepositoryInterface {
-  getAll(): any[][];
+  getAll(): NotificationPeriod[];
 }
