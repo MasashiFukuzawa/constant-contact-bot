@@ -9,7 +9,7 @@ export class DearestUpdateInteractor implements DearestUpdateUseCaseInterface {
     private readonly dearestUpdatePresenter: DearestUpdatePresenterInterface
   ) {}
 
-  handle(name: string, typeId?: number, notificationPeriodId?: number): void {
+  handle(name: string, typeId: number | null, notificationPeriodId: number | null): void {
     const dearest = this.dearestRepository.findByName(name);
     const dearestUpdateOutputData = new DearestUpdateOutputData();
     let outputData: string;

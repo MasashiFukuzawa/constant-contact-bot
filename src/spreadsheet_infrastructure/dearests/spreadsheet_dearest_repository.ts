@@ -21,7 +21,7 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
     })[0];
   }
 
-  update(dearest: Dearest, typeId?: number, notificationPeriodId?: number): Dearest {
+  update(dearest: Dearest, typeId: number | null, notificationPeriodId: number | null): Dearest {
     const dearestId = dearest.getId().toNumber();
     const tId = typeId || dearest.getTypeId().toNumber();
     const npId = notificationPeriodId || dearest.getNotificationPeriodId().toNumber();
