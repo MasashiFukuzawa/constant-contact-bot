@@ -4,39 +4,36 @@ import { SpreadsheetTypeRepository } from "../../spreadsheet_infrastructure/type
 import { DearestHelpController } from "../../webhook_app/dearest/help/dearest_help_controller";
 import { DearestHelpPresenter } from "../../webhook_app/dearest/help/dearest_help_presenter";
 import { DearestHelpInteractor } from "../../domain/application/dearest/dearest_help_interactor";
+import { DearestUpdateController } from "../../webhook_app/dearest/update/dearest_update_controller";
+import { DearestUpdatePresenter } from "../../webhook_app/dearest/update/dearest_update_presenter";
+import { DearestUpdateInteractor } from "../../domain/application/dearest/dearest_update_interactor";
 
 function doPost(e: any): void {
   const json = JSON.parse(e.postData.contents);
   const events = json.events;
 
   events.forEach(e => {
-    switch (e.type) {
+    const eventType: string = e.type;
+    switch (eventType) {
       case 'message':
-        this.execControllerAction(e);
-        // doMessageAction(e);
+        const text: string = e.message.text;
+        execControllerAction(eventType, text);
       case 'postback':
-        // TODO
+        const data: string = e.postback.data;
+        execDearestUpdateAction(eventType, data);
     }
   });
 }
 
-function execControllerAction(event: any): any {
-  const text: string = event.message.text;
-  const sdr = new SpreadsheetDearestRepository();
-  const str = new SpreadsheetTypeRepository();
-  const snpr = new SpreadsheetNotificationPeriodRepository();
-
+function execControllerAction(eventType: string, text: string): void {
   if (text === 'help') {
-    this.execDearestHelpAction(sdr, snpr);
-    return;
+    return execDearestHelpAction();
   } else if (text.indexOf('create -d') !== -1) {
     return; // TODO
   } else if (text.indexOf('update -d') !== -1) {
-    return; // TODO
+    return execDearestUpdateAction(eventType, text);
   } else if (text.indexOf('delete -d') !== -1) {
     return; // TODO
-  } else {
-    return;
   }
 }
 
@@ -45,4 +42,24 @@ function execDearestHelpAction(): void {
   const dhi = new DearestHelpInteractor(dhp);
   const dearestHelpController = new DearestHelpController(dhi);
   dearestHelpController.help();
+}
+
+function execDearestUpdateAction(eventType: string, str: string): void {
+  const dr = initDearestRepository();
+  const dup = new DearestUpdatePresenter();
+  const dui = new DearestUpdateInteractor(dr, dup);
+  const dearestUpdateController = new DearestUpdateController(dui);
+  dearestUpdateController.update(eventType, str);
+}
+
+function initDearestRepository(): SpreadsheetDearestRepository {
+  return new SpreadsheetDearestRepository();
+}
+
+function initTypeRepository(): SpreadsheetTypeRepository {
+  return new SpreadsheetTypeRepository();
+}
+
+function initNotificationPeriodRepository(): SpreadsheetNotificationPeriodRepository {
+  return new SpreadsheetNotificationPeriodRepository();
 }
