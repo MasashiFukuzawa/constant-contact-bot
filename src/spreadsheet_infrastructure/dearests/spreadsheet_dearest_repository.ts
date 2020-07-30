@@ -15,10 +15,18 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
     this.fullData = this.getAll();
   }
 
+  getAll(): Dearest[] {
+    if (this.fullData) return this.fullData;
+    const rawData = this.sheet.getRange(2, 1, this.lastRow, this.lastCol).getValues();
+    const fullData = rawData.filter((e) => !!e[0]);
+    return this.map(fullData);
+  }
+
   findByName(name: string): Dearest | null {
-    return this.fullData.filter(d => {
+    const dearest = this.fullData.filter(d => {
       return d.getName().toString() === name;
     })[0];
+    return dearest === undefined ? null : dearest;
   }
 
   update(dearest: Dearest, typeId: number | null, notificationPeriodId: number | null): Dearest {
@@ -50,13 +58,6 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
   private getLastColumn(): number {
     if (this.lastCol) return this.lastCol;
     return this.sheet.getLastColumn();
-  }
-
-  private getAll(): Dearest[] {
-    if (this.fullData) return this.fullData;
-    const rawData = this.sheet.getRange(2, 1, this.lastRow, this.lastCol).getValues();
-    const fullData = rawData.filter((e) => !!e[0]);
-    return this.map(fullData);
   }
 
   private map(fullData: any[][]): Dearest[] {

@@ -1,3 +1,4 @@
+import { Type } from '../../../src/domain/domain/type/type';
 import { SpreadsheetTypeRepository } from '../../../src/spreadsheet_infrastructure/types/spreadsheet_type_repository';
 
 describe('TypeRepository', () => {
@@ -25,11 +26,11 @@ describe('TypeRepository', () => {
     it('returns all data in types table', () => {
       const snpr = new SpreadsheetTypeRepository();
       const data = snpr.getAll();
-      expect(data[0]).toStrictEqual([1, 'family']);
-      expect(data[1]).toStrictEqual([2, 'relative']);
-      expect(data[2]).toStrictEqual([3, 'lover']);
-      expect(data[3]).toStrictEqual([4, 'best_friend']);
-      expect(data[4]).toStrictEqual([5, 'friend']);
+      expect(data[0]).toStrictEqual(new Type(1, 'family'));
+      expect(data[1]).toStrictEqual(new Type(2, 'relative'));
+      expect(data[2]).toStrictEqual(new Type(3, 'lover'));
+      expect(data[3]).toStrictEqual(new Type(4, 'best_friend'));
+      expect(data[4]).toStrictEqual(new Type(5, 'friend'));
     });
   });
 });
