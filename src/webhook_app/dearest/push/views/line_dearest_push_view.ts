@@ -1,17 +1,22 @@
 import { Line } from "../../../../constants/constants";
 import { LineViewComponent } from "../../../view_component/line_view_component";
 
-export class LineDearestPushView extends LineViewComponent {
+export class LineDearestPushView {
   pushMessages(names: string[]): void {
+    const line = new LineViewComponent()
     const altText = this.getAltText();
     names.forEach((name) => {
-      const postData = this.getConfirmTypePushData(
+      const postData = line.getConfirmTypePushData(
         altText,
         this.getText(name),
         this.getActions(name)
       );
-      UrlFetchApp.fetch(Line.PUSH_URL, this.getOptions(postData));
+      UrlFetchApp.fetch(Line.PUSH_URL, line.getOptions(postData));
     });
+  }
+
+  getProviderName(): string {
+    return Line.PROVIDER_NAME;
   }
 
   private getAltText(): string {

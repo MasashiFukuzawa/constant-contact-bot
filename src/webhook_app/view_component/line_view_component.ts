@@ -10,10 +10,6 @@ export class LineViewComponent {
     };
   }
 
-  getProviderName(): string {
-    return Line.PROVIDER_NAME;
-  }
-
   getConfirmTypePushData(altText: string, text: string, actions: object[]): object {
     return {
       to: new LineAuthorization().getUserId(),
