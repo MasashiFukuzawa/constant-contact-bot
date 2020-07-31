@@ -9,7 +9,7 @@ export class DearestUpdateInteractor implements DearestUpdateUseCaseInterface {
     private readonly dearestUpdatePresenter: DearestUpdatePresenterInterface
   ) {}
 
-  handle(name: string, typeId: number | null, notificationPeriodId: number | null): void {
+  handle(replyToken: string, name: string, typeId: number | null, notificationPeriodId: number | null): void {
     const dearest = this.dearestRepository.findByName(name);
     const dearestUpdateOutputData = new DearestUpdateOutputData();
     let outputData: string;
@@ -19,6 +19,6 @@ export class DearestUpdateInteractor implements DearestUpdateUseCaseInterface {
     } else {
       outputData = dearestUpdateOutputData.getErrorMessage(name);
     }
-    this.dearestUpdatePresenter.showMessage(outputData);
+    this.dearestUpdatePresenter.replyMessage(replyToken, outputData);
   }
 }

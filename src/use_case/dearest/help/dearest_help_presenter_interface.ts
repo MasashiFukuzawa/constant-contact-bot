@@ -1,3 +1,3 @@
 export interface DearestHelpPresenterInterface {
-  showHowToUse(helpMessage: string): void;
+  replyMessage(replyToken: string, helpMessage: string): void;
 }

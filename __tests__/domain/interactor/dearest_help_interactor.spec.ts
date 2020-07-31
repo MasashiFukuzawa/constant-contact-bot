@@ -12,7 +12,8 @@ describe('DearestHelpInteractor', () => {
       it('sends a help message successfully', () => {
         const dpp = new DearestHelpPresenter();
         const das = new DearestHelpInteractor(dpp);
-        das.handle();
+        const replyToken = 'some_reply_token';
+        das.handle(replyToken);
         expect(UrlFetchApp.fetch).toHaveBeenCalledTimes(1);
       });
     });

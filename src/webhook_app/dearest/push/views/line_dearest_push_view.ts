@@ -1,50 +1,40 @@
 import { Line } from "../../../../constants/constants";
-import { LineAuthorization } from "../../../authorization/line_authorization";
+import { LineViewComponent } from "../../../view_component/line_view_component";
 
-export class LineDearestPushView {
+export class LineDearestPushView extends LineViewComponent {
   pushMessages(names: string[]): void {
+    const altText = this.getAltText();
     names.forEach((name) => {
-      UrlFetchApp.fetch(Line.PUSH_URL, this.setOptions(name));
+      const postData = this.getConfirmTypePushData(
+        altText,
+        this.getText(name),
+        this.getActions(name)
+      );
+      UrlFetchApp.fetch(Line.PUSH_URL, this.getOptions(postData));
     });
   }
 
-  toString(): string {
-    return Line.PROVIDER_NAME;
+  private getAltText(): string {
+    return "久しぶりに大切な人に連絡を取りましょう\uDBC0\uDC40";
   }
 
-  private setOptions(name: string): object {
-    const postData = this.setPostData(name);
-    return {
-      "method": "post",
-      "headers": new LineAuthorization().getHeaders(),
-      "payload": JSON.stringify(postData)
-    };
+  private getText(name: string): string {
+    return `久しぶりに ${name} に連絡を取ってみませんか？`;
   }
 
-  private setPostData(name: string): object {
-    return {
-      "to": new LineAuthorization().getUserId(),
-      "messages": [{
-        "type": "template",
-        "altText": "久しぶりに大切な人に連絡を取りましょう\uDBC0\uDC40",
-        "template": {
-          "type": "confirm",
-          "text": `久しぶりに ${name} に連絡を取ってみませんか？`,
-          "actions": [
-            {
-              "type": "message",
-              "label": "Thanks",
-              "text": "See you again!"
-            },
-            {
-              "type": "postback",
-              "label": "Update",
-              "data": `name=${name}`,
-              "showText": "Updating database..."
-            }
-          ],
-        },
-      }]
-    };
+  private getActions(name: string): object[] {
+    return [
+      {
+        type: "message",
+        label: "Thanks",
+        text: "See you again!"
+      },
+      {
+        type: "postback",
+        label: "Update",
+        data: `name=${name}`,
+        showText: "Updating database..."
+      }
+    ]
   }
 }

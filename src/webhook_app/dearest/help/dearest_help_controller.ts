@@ -3,7 +3,7 @@ import { DearestHelpUseCaseInterface } from '../../../use_case/dearest/help/dear
 export class DearestHelpController {
   constructor(private readonly dearestHelpUseCase: DearestHelpUseCaseInterface) {}
 
-  help(): void {
-    this.dearestHelpUseCase.handle();
+  help(replyToken: string): void {
+    this.dearestHelpUseCase.handle(replyToken);
   }
 }

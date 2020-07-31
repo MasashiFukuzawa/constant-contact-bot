@@ -7,9 +7,9 @@ export class DearestHelpInteractor implements DearestHelpUseCaseInterface {
     private readonly dearestHelpPresenter: DearestHelpPresenterInterface
   ) {}
 
-  handle(): void {
+  handle(replyToken: string): void {
     const dearestHelpOutputData = new DearestHelpOutputData();
     const helpMessage = dearestHelpOutputData.getMessage();
-    this.dearestHelpPresenter.showHowToUse(helpMessage);
+    this.dearestHelpPresenter.replyMessage(replyToken, helpMessage);
   }
 }

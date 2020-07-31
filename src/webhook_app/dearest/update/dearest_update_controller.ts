@@ -4,9 +4,10 @@ import { DearestUpdateInputData } from "../../../use_case/dearest/update/dearest
 export class DearestUpdateController {
   constructor(private readonly dearestUpdateUseCase: DearestUpdateUseCaseInterface) {}
 
-  update(eventType: string, str: string): void {
+  update(replyToken: string, eventType: string, str: string): void {
     const params = this.getParams(eventType, str);
     this.dearestUpdateUseCase.handle(
+      replyToken,
       params.name,
       params.typeId,
       params.notificationPeriodId

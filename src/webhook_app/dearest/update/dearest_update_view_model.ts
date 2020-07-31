@@ -3,10 +3,10 @@ import { LineDearestUpdateView } from "./views/line_dearest_update_view";
 export class DearestUpdateViewModel {
   private readonly subscribers = [new LineDearestUpdateView()];
 
-  showMessage(message: string): void {
+  replyMessage(replyToken: string, message: string): void {
     this.subscribers.forEach((s) => {
-      s.showMessage(message);
-      console.log(`${s.toString()} にメッセージを送信しました`);
+      s.replyMessage(replyToken, message);
+      console.log(`${s.getProviderName()} にメッセージを送信しました`);
     });
   }
 }

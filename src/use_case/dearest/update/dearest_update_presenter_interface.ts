@@ -1,3 +1,3 @@
 export interface DearestUpdatePresenterInterface {
-  showMessage(message: string): void;
+  replyMessage(replyToken: string, message: string): void;
 }
