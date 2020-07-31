@@ -1,20 +1,20 @@
 export class DearestUpdateInputData {
-  getNameFromMessage(text: string): {name: string, typeId: number | null, notificationPeriodId: number | null} {
-    // text => update -d n:{name} t:4 p:3
+  parseTextFromMessage(text: string): {name: string, typeId: number | null, notificationPeriodId: number | null} {
+    // text => update -d n:{name} t:{type_id} p:{notification_period_id}
     const contents = text.split(' ');
     const argName = contents.filter(RegExp.prototype.test, /^n:.+/g)[0];
     const argTypeId = contents.filter(RegExp.prototype.test, /^t:.+/g)[0];
     const argNotificationPeriodId = contents.filter(RegExp.prototype.test, /^p:.+/g)[0];
-    const name = argName.slice(0, 2);
-    const typeId = argTypeId ? +argTypeId.slice(0, 2) : null;
-    const notificationPeriodId = argNotificationPeriodId ? +argNotificationPeriodId.slice(0, 2) : null;
+    const name = argName.slice(2);
+    const typeId = argTypeId ? +argTypeId.slice(2) : null;
+    const notificationPeriodId = argNotificationPeriodId ? +argNotificationPeriodId.slice(2) : null;
     return { name, typeId, notificationPeriodId };
   }
 
-  getNameFromPostBack(data: string): {name: string, typeId: number | null, notificationPeriodId: number | null} {
+  parseDataFromPostBack(data: string): {name: string, typeId: number | null, notificationPeriodId: number | null} {
     // data => name={name}
     return {
-      name: data.slice(4),
+      name: data.slice(5),
       typeId: null,
       notificationPeriodId: null
     };

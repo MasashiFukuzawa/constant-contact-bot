@@ -21,9 +21,9 @@ export class DearestUpdateController {
     const inputData = new DearestUpdateInputData();
     switch (eventType) {
       case 'message':
-        return inputData.getNameFromMessage(str);
+        return inputData.parseTextFromMessage(str);
       case 'postback':
-        return inputData.getNameFromPostBack(str);
+        return inputData.parseDataFromPostBack(str);
     }
   }
 }
