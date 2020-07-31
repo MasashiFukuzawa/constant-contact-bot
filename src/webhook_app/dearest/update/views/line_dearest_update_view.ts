@@ -1,19 +1,17 @@
 import { Line } from "../../../../constants/constants";
 import { LineAuthorization } from "../../../authorization/line_authorization";
 
-export class LineDearestPushView {
-  pushMessages(names: string[]): void {
-    names.forEach((name) => {
-      UrlFetchApp.fetch(Line.PUSH_URL, this.setOptions(name));
-    });
+export class LineDearestUpdateView {
+  showMessage(message: string): void {
+    UrlFetchApp.fetch(Line.PUSH_URL, this.setOptions(message));
   }
 
   toString(): string {
     return Line.PROVIDER_NAME;
   }
 
-  private setOptions(name: string): object {
-    const postData = this.setPostData(name);
+  private setOptions(message: string): object {
+    const postData = this.setPostData(message);
     return {
       "method": "post",
       "headers": new LineAuthorization().getHeaders(),
@@ -21,7 +19,7 @@ export class LineDearestPushView {
     };
   }
 
-  private setPostData(name: string): object {
+  private setPostData(message: string): object {
     return {
       "to": new LineAuthorization().getUserId(),
       "messages": [{
@@ -29,7 +27,7 @@ export class LineDearestPushView {
         "altText": "久しぶりに大切な人に連絡を取りましょう\uDBC0\uDC40",
         "template": {
           "type": "confirm",
-          "text": `久しぶりに ${name} に連絡を取ってみませんか？`,
+          "text": `久しぶりに ${message} に連絡を取ってみませんか？`,
           "actions": [
             {
               "type": "message",
@@ -39,7 +37,7 @@ export class LineDearestPushView {
             {
               "type": "postback",
               "label": "Update",
-              "data": `name=${name}`,
+              "data": `message=${message}`,
               "showText": "Updating database..."
             }
           ],

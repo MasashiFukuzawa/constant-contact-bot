@@ -1,15 +1,13 @@
+import { Line } from "../../../../constants/constants";
 import { LineAuthorization } from "../../../authorization/line_authorization";
-
-const PROVIDER_NAME = 'LINE';
-const PUSH_URL = "https://api.line.me/v2/bot/message/push";
 
 export class LineDearestHelpView {
   showHowToUse(helpMessage: string): void {
-    UrlFetchApp.fetch(PUSH_URL, this.setOptions(helpMessage));
+    UrlFetchApp.fetch(Line.PUSH_URL, this.setOptions(helpMessage));
   }
 
   toString(): string {
-    return PROVIDER_NAME;
+    return Line.PROVIDER_NAME;
   }
 
   private setOptions(helpMessage: string): object {
