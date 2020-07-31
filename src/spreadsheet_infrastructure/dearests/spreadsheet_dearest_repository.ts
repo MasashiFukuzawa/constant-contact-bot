@@ -34,8 +34,8 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
     const tId = typeId || dearest.getTypeId().toNumber();
     const npId = notificationPeriodId || dearest.getNotificationPeriodId().toNumber();
     const now = new Date();
-    this.sheet.getRange(dearestId + 1, 3, this.lastCol)
-      .setValues([[tId, npId, now]]);
+    this.sheet.getRange(dearestId + 1, 1, 1, this.lastCol)
+      .setValues([[dearestId, dearest.getName().toString(), tId, npId, now]]);
     dearest.setTypeId(tId);
     dearest.setNotificationPeriodId(npId);
     dearest.setLastContactedDate(now);
