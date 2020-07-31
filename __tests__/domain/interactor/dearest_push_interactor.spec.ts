@@ -21,8 +21,7 @@ describe('DearestPushInteractor', () => {
           [2, 'Katsuki Bakugo', 2, 3, new Date(2020, 3, 1)],
           [3, 'Ochako Uraraka', 3, 1, new Date(2020, 5, 1)],
           [4, 'Shoto Todoroki', 4, 2, new Date(2020, 7, 1)],
-        ]),
-        setValues: jest.fn(),
+        ])
       })),
     })),
   })) as any;
