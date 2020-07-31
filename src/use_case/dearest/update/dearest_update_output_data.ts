@@ -8,7 +8,7 @@ Dearest {
   name: ${dearest.getName().toString()},
   typeId: ${dearest.getTypeId().toNumber()},
   notificationPeriodId: ${dearest.getNotificationPeriodId().toNumber()},
-  lastContactedData: ${dearest.getLastContactedDate().toDate().toLocaleString()}
+  lastContactedDate: ${dearest.getLastContactedDate().toDate().toLocaleString()}
 }`;
   }
 
