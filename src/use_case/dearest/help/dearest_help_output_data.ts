@@ -1,14 +1,11 @@
 export class DearestHelpOutputData {
   getMessage(): string {
-    return `1) Create: create -d n:name t:type p:notification_period
+    return `1) create -d n:{name} t:{type_id} p:{notification_period_id}
 
-2) Update: update -d n:name t:type p:notification_period
+2) update -d n:{name} t:{type_id} p:{notification_period_id}
 
-3) Delete: delete -d n:name
+3) delete -d n:{name}
 
-4) Help: help
-
-Could you understand?
-`;
+4) help`;
   }
 }
