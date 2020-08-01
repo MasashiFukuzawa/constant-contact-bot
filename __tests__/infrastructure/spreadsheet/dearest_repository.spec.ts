@@ -57,16 +57,13 @@ describe('DearestRepository', () => {
   describe('#create', () => {
     describe('when valid', () => {
       it('creates successfully', () => {
-        const now = new Date('2020/7/29 01:00:00');
-        Date.now = jest.fn().mockReturnValue(now.valueOf());
-        jest.spyOn(global, 'Date').mockImplementation();
-
-        const dearest = sdr.create('All Might', 5, 4);
+        const LastContactedDate = new Date('2020/8/1');
+        const dearest = sdr.create('All Might', 5, 4, LastContactedDate);
         expect(dearest.getId().toNumber()).toBe(5);
         expect(dearest.getName().toString()).toBe('All Might');
         expect(dearest.getTypeId().toNumber()).toBe(5);
         expect(dearest.getNotificationPeriodId().toNumber()).toBe(4);
-        expect(dearest.getLastContactedDate().toDate()).toStrictEqual(new Date());
+        expect(dearest.getLastContactedDate().toDate()).toStrictEqual(LastContactedDate);
       });
     });
 
