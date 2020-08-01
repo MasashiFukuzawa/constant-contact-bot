@@ -55,24 +55,14 @@ describe('DearestRepository', () => {
   });
 
   describe('#create', () => {
-    const lastContactedDate = new Date('2020/8/1');
-
-    describe('when valid', () => {
-      it('creates successfully', () => {
-        const dearest = sdr.create('All Might', 5, 4, lastContactedDate);
-        expect(dearest.getId().toNumber()).toBe(5);
-        expect(dearest.getName().toString()).toBe('All Might');
-        expect(dearest.getTypeId().toNumber()).toBe(5);
-        expect(dearest.getNotificationPeriodId().toNumber()).toBe(4);
-        expect(dearest.getLastContactedDate().toDate()).toStrictEqual(lastContactedDate);
-      });
-    });
-
-    describe('when invalid', () => {
-      it('fails to create because of unique constraint', () => {
-        const dearest = sdr.create('Izuku Midoriya', 5, 4, lastContactedDate);
-        expect(dearest).toBe(null);
-      });
+    it('creates successfully', () => {
+      const lastContactedDate = new Date('2020/8/1');
+      const dearest = sdr.create('All Might', 5, 4, lastContactedDate);
+      expect(dearest.getId().toNumber()).toBe(5);
+      expect(dearest.getName().toString()).toBe('All Might');
+      expect(dearest.getTypeId().toNumber()).toBe(5);
+      expect(dearest.getNotificationPeriodId().toNumber()).toBe(4);
+      expect(dearest.getLastContactedDate().toDate()).toStrictEqual(lastContactedDate);
     });
   });
 

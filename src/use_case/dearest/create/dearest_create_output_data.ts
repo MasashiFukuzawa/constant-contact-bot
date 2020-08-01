@@ -11,8 +11,4 @@ Dearest {
   lastContactedDate: ${dearest.getLastContactedDate().toDate().toLocaleString()}
 }`;
   }
-
-  getErrorMessage(): string {
-    return 'バリデーションエラー: Not Null制約 または Unique制約 に引っ掛かりました';
-  }
 }
