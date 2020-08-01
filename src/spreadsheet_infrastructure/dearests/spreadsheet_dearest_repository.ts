@@ -49,6 +49,16 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
     return dearest;
   }
 
+  delete(name: string): Dearest | null {
+    const dearest = this.findByName(name);
+    if (dearest) {
+      this.sheet.getRange(dearest.getId().toNumber() + 1, 1, 1, this.lastCol).clear();
+      return dearest;
+    } else {
+      return null;
+    }
+  }
+
   private getSheet(): Sheet {
     if (this.sheet) return this.sheet;
     const ss: Spreadsheet = SpreadsheetApp.openById(
