@@ -7,6 +7,9 @@ import { DearestHelpInteractor } from "../../domain/application/dearest/dearest_
 import { DearestUpdateController } from "../../webhook_app/dearest/update/dearest_update_controller";
 import { DearestUpdatePresenter } from "../../webhook_app/dearest/update/dearest_update_presenter";
 import { DearestUpdateInteractor } from "../../domain/application/dearest/dearest_update_interactor";
+import { DearestCreatePresenter } from "../../webhook_app/dearest/create/dearest_create_presenter";
+import { DearestCreateInteractor } from "../../domain/application/dearest/dearest_create_interactor";
+import { DearestCreateController } from "../../webhook_app/dearest/create/dearest_create_controller";
 
 function doPost(e: any): void {
   const json = JSON.parse(e.postData.contents);
@@ -30,7 +33,7 @@ function execControllerAction(replyToken: string, eventType: string, text: strin
   if (text === 'help') {
     return execDearestHelpAction(replyToken);
   } else if (text.indexOf('create -d') !== -1) {
-    return; // TODO
+    return execDearestCreateAction(replyToken, text);
   } else if (text.indexOf('update -d') !== -1) {
     return execDearestUpdateAction(replyToken, eventType, text);
   } else if (text.indexOf('delete -d') !== -1) {
@@ -45,6 +48,14 @@ function execDearestHelpAction(replyToken: string): void {
   dearestHelpController.help(replyToken);
 }
 
+function execDearestCreateAction(replyToken: string, text: string): void {
+  const dr = initDearestRepository();
+  const dcp = new DearestCreatePresenter();
+  const dci = new DearestCreateInteractor(dr, dcp);
+  const dearestCreateController = new DearestCreateController(dci);
+  dearestCreateController.create(replyToken, text);
+}
+
 function execDearestUpdateAction(replyToken: string, eventType: string, str: string): void {
   const dr = initDearestRepository();
   const dup = new DearestUpdatePresenter();
@@ -55,12 +66,4 @@ function execDearestUpdateAction(replyToken: string, eventType: string, str: str
 
 function initDearestRepository(): SpreadsheetDearestRepository {
   return new SpreadsheetDearestRepository();
-}
-
-function initTypeRepository(): SpreadsheetTypeRepository {
-  return new SpreadsheetTypeRepository();
-}
-
-function initNotificationPeriodRepository(): SpreadsheetNotificationPeriodRepository {
-  return new SpreadsheetNotificationPeriodRepository();
 }

@@ -49,4 +49,25 @@ export class Dearest {
   setLastContactedDate(date: Date): void {
     this.lastContactedDate = new DearestLastContactedDate(date);
   }
+
+  static issueNewDearestId(lastDearestId: number): number {
+    return lastDearestId + 1;
+  }
+
+  static isValid(
+    name: string,
+    typeId: number,
+    notificationPeriodId: number,
+    lastContactedDate: Date
+  ): { isValid: boolean, errorMessage: string | null } {
+    try {
+      new DearestName(name);
+      new DearestTypeId(typeId);
+      new DearestNotificationPeriodId(notificationPeriodId);
+      new DearestLastContactedDate(lastContactedDate);
+      return { isValid: true, errorMessage: null };
+    } catch(e) {
+      return { isValid: false, errorMessage: e };
+    }
+  }
 }

@@ -29,6 +29,13 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
     return dearest === undefined ? null : dearest;
   }
 
+  create(name: string, typeId: number, notificationPeriodId: number, lastContactedDate: Date): Dearest {
+    const id = Dearest.issueNewDearestId(this.lastRow);
+    this.sheet.getRange(id + 1, 1, 1, this.lastCol)
+      .setValues([[id, name, typeId, notificationPeriodId, lastContactedDate]]);
+    return new Dearest(id, name, typeId, notificationPeriodId, lastContactedDate);
+  }
+
   update(dearest: Dearest, typeId: number | null, notificationPeriodId: number | null): Dearest {
     const dearestId = dearest.getId().toNumber();
     const tId = typeId || dearest.getTypeId().toNumber();
