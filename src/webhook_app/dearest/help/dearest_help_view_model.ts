@@ -4,9 +4,9 @@ export class DearestHelpViewModel {
   private readonly subscribers = [new LineDearestHelpView()];
 
   replyMessage(replyToken: string, helpMessage: string): void {
-    this.subscribers.forEach((s) => {
-      s.replyMessage(replyToken, helpMessage);
-      console.log(`${s.getProviderName()} にメッセージを送信しました`);
+    this.subscribers.forEach(e => {
+      e.replyMessage(replyToken, helpMessage);
+      console.log(`${e.getProviderName()} にメッセージを送信しました`);
     });
   }
 }

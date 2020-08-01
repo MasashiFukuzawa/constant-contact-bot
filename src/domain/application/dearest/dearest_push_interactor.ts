@@ -24,16 +24,16 @@ export class DearestPushInteractor implements DearestPushUseCaseInterface {
     mappedNotificationPeriodsData: NotificationPeriod[]
   ): string[] {
     const targetData = this.filterDearestData(mappedDearestsData, mappedNotificationPeriodsData);
-    return targetData.map((d) => d.getName().toString());
+    return targetData.map(e => e.getName().toString());
   }
 
   private filterDearestData(
     mappedDearestsData: Dearest[],
     mappedNotificationPeriodsData: NotificationPeriod[]
   ): Dearest[] {
-    return mappedDearestsData.filter((d) => {
-      const notificationPeriodId = d.getNotificationPeriodId().toNumber();
-      const lastContactedDate = d.getLastContactedDate().toDate();
+    return mappedDearestsData.filter(e => {
+      const notificationPeriodId = e.getNotificationPeriodId().toNumber();
+      const lastContactedDate = e.getLastContactedDate().toDate();
       const now = Moment.moment();
       const notificationPeriod = this.getNotificationPeriod(notificationPeriodId, mappedNotificationPeriodsData);
       const targetDate: Date =
@@ -56,8 +56,8 @@ export class DearestPushInteractor implements DearestPushUseCaseInterface {
     mappedNotificationPeriodsData: NotificationPeriod[],
     notificationPeriodId: number
   ): NotificationPeriod {
-    const selectedData = mappedNotificationPeriodsData.filter((d) => {
-      return d.getId().toNumber() === notificationPeriodId;
+    const selectedData = mappedNotificationPeriodsData.filter(e => {
+      return e.getId().toNumber() === notificationPeriodId;
     })[0];
     if (selectedData === null) {
       throw new Error('notification_periodsテーブル中に、該当するNotificationPeriodが見つかりませんでした');

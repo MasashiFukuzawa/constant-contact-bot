@@ -12,13 +12,13 @@ export class SpreadsheetTypeRepository implements TypeRepositoryInterface {
     const lastRow = ws.getLastRow();
     const lastCol = ws.getLastColumn();
     const rawData = ws.getRange(2, 1, lastRow, lastCol).getValues();
-    const fullData = rawData.filter((e) => !!e[0]);
+    const fullData = rawData.filter(e => !!e[0]);
     return this.map(fullData);
   }
 
   private map(fullData: any[][]): Type[] {
-    return fullData.map((d) => {
-      return new Type(d[0], d[1]);
+    return fullData.map(e => {
+      return new Type(e[0], e[1]);
     });
   }
 }
