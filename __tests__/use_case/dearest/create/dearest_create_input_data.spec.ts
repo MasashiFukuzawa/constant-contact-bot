@@ -14,7 +14,8 @@ describe('DearestCreateInputData', () => {
         name: 'Midoriya',
         typeId: 1,
         notificationPeriodId: 3,
-        lastContactedDate: new Date(2020, 8, 1)
+        lastContactedDate: new Date(2020, 8, 1),
+        birthday: null
       });
     });
   });

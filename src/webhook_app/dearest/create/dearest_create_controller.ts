@@ -12,7 +12,8 @@ export class DearestCreateController {
       params.name,
       params.typeId,
       params.notificationPeriodId,
-      params.lastContactedDate
+      params.lastContactedDate,
+      params.birthday
     );
   }
 }

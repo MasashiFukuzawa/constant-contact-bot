@@ -9,12 +9,18 @@ export class DearestUpdateInteractor implements DearestUpdateUseCaseInterface {
     private readonly dearestUpdatePresenter: DearestUpdatePresenterInterface
   ) {}
 
-  handle(replyToken: string, name: string, typeId: number | null, notificationPeriodId: number | null): void {
+  handle(
+    replyToken: string,
+    name: string,
+    typeId: number | null,
+    notificationPeriodId: number | null,
+    birthday: string | null
+  ): void {
     const dearest = this.dearestRepository.findByName(name);
     const dearestUpdateOutputData = new DearestUpdateOutputData();
     let outputData: string;
     if (dearest) {
-      const updatedDearest = this.dearestRepository.update(dearest, typeId, notificationPeriodId);
+      const updatedDearest = this.dearestRepository.update(dearest, typeId, notificationPeriodId, birthday);
       outputData = dearestUpdateOutputData.getMessage(updatedDearest);
     } else {
       outputData = dearestUpdateOutputData.getErrorMessage(name);
