@@ -5,11 +5,11 @@ export class LineDearestPushView {
   pushMessages(names: string[]): void {
     const line = new LineViewComponent()
     const altText = this.getAltText();
-    names.forEach((name) => {
+    names.forEach(e => {
       const postData = line.getConfirmTypePushData(
         altText,
-        this.getText(name),
-        this.getActions(name)
+        this.getText(e),
+        this.getActions(e)
       );
       UrlFetchApp.fetch(Line.PUSH_URL, line.getOptions(postData));
     });

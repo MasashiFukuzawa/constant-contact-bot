@@ -4,9 +4,9 @@ export class DearestUpdateViewModel {
   private readonly subscribers = [new LineDearestUpdateView()];
 
   replyMessage(replyToken: string, message: string): void {
-    this.subscribers.forEach((s) => {
-      s.replyMessage(replyToken, message);
-      console.log(`${s.getProviderName()} にメッセージを送信しました`);
+    this.subscribers.forEach(e => {
+      e.replyMessage(replyToken, message);
+      console.log(`${e.getProviderName()} にメッセージを送信しました`);
     });
   }
 }

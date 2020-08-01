@@ -18,13 +18,13 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
   getAll(): Dearest[] {
     if (this.fullData) return this.fullData;
     const rawData = this.sheet.getRange(2, 1, this.lastRow, this.lastCol).getValues();
-    const fullData = rawData.filter((e) => !!e[0]);
+    const fullData = rawData.filter(e => !!e[0]);
     return this.map(fullData);
   }
 
   findByName(name: string): Dearest | null {
-    const dearest = this.fullData.filter(d => {
-      return d.getName().toString() === name;
+    const dearest = this.fullData.filter(e => {
+      return e.getName().toString() === name;
     })[0];
     return dearest === undefined ? null : dearest;
   }
@@ -61,8 +61,8 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
   }
 
   private map(fullData: any[][]): Dearest[] {
-    return fullData.map((d) => {
-      return new Dearest(d[0], d[1], d[2], d[3], d[4]);
+    return fullData.map(e => {
+      return new Dearest(e[0], e[1], e[2], e[3], e[4]);
     });
   }
 }

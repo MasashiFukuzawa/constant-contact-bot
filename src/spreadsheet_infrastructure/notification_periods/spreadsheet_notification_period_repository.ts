@@ -12,13 +12,13 @@ export class SpreadsheetNotificationPeriodRepository implements NotificationPeri
     const lastRow = ws.getLastRow();
     const lastCol = ws.getLastColumn();
     const rawData = ws.getRange(2, 1, lastRow, lastCol).getValues();
-    const fullData = rawData.filter((e) => !!e[0]);
+    const fullData = rawData.filter(e => !!e[0]);
     return this.map(fullData);
   }
 
   private map(fullData: any[][]): NotificationPeriod[] {
-    return fullData.map((d) => {
-      return new NotificationPeriod(d[0], d[1], d[2]);
+    return fullData.map(e => {
+      return new NotificationPeriod(e[0], e[1], e[2]);
     });
   }
 }
