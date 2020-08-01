@@ -14,6 +14,7 @@ describe('DearestRepository', () => {
           [4, 'Shoto Todoroki', 4, 2, new Date(2020, 7, 1)],
         ]),
         setValues: jest.fn(),
+        clear: jest.fn(),
       })),
     })),
   })) as any;
@@ -38,11 +39,7 @@ describe('DearestRepository', () => {
     describe('when valid', () => {
       it('returns a dearest resource', () => {
         const dearest = sdr.findByName('Izuku Midoriya');
-        expect(dearest.getId().toNumber()).toBe(1);
-        expect(dearest.getName().toString()).toBe('Izuku Midoriya');
-        expect(dearest.getTypeId().toNumber()).toBe(1);
-        expect(dearest.getNotificationPeriodId().toNumber()).toBe(3);
-        expect(dearest.getLastContactedDate().toDate()).toStrictEqual(new Date(2020, 1, 1));
+        expect(dearest).toStrictEqual(new Dearest(1, 'Izuku Midoriya', 1, 3, new Date(2020, 1, 1)));
       });
     });
 
@@ -58,25 +55,34 @@ describe('DearestRepository', () => {
     it('creates successfully', () => {
       const lastContactedDate = new Date('2020/8/1');
       const dearest = sdr.create('All Might', 5, 4, lastContactedDate);
-      expect(dearest.getId().toNumber()).toBe(5);
-      expect(dearest.getName().toString()).toBe('All Might');
-      expect(dearest.getTypeId().toNumber()).toBe(5);
-      expect(dearest.getNotificationPeriodId().toNumber()).toBe(4);
-      expect(dearest.getLastContactedDate().toDate()).toStrictEqual(lastContactedDate);
+      expect(dearest).toStrictEqual(new Dearest(5, 'All Might', 5, 4, lastContactedDate));
     });
   });
 
   describe('#update', () => {
     it('updates successfully', () => {
-      const now = new Date('2020/7/29 01:00:00');
-      Date.now = jest.fn().mockReturnValue(now.valueOf());
-      jest.spyOn(global, 'Date').mockImplementation();
-
+      const spy = jest.spyOn(global, 'Date').mockImplementation();
       const dearest = new Dearest(1, 'Izuku Midoriya', 1, 3, new Date(2020, 1, 1));
       const updatedDearest = sdr.update(dearest, 4, 4);
-      expect(updatedDearest.getTypeId().toNumber()).toBe(4);
-      expect(updatedDearest.getNotificationPeriodId().toNumber()).toBe(4);
-      expect(updatedDearest.getLastContactedDate().toDate()).toStrictEqual(new Date());
+      expect(updatedDearest).toStrictEqual(new Dearest(1, 'Izuku Midoriya', 4,  4, new Date()));
+      spy.mockReset();
+      spy.mockRestore();
+    });
+  });
+
+  describe('#delete', () => {
+    describe('when valid', () => {
+      it('deletes successfully', () => {
+        const deletedDearest = sdr.delete('Izuku Midoriya');
+        expect(deletedDearest).toStrictEqual(new Dearest(1, 'Izuku Midoriya', 1, 3, new Date(2020, 1, 1)));
+      });
+    });
+
+    describe('when invalid', () => {
+      it('fails to delete', () => {
+        const deletedDearest = sdr.delete('All Might');
+        expect(deletedDearest).toBe(null);
+      });
     });
   });
 });

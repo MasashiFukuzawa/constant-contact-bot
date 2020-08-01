@@ -5,4 +5,5 @@ export interface DearestRepositoryInterface {
   findByName(name: string): Dearest | null;
   create(name: string, typeId: number, notificationPeriodId: number, lastContactedDate: Date): Dearest;
   update(dearest: Dearest, typeId: number | null, notificationPeriodId: number | null): Dearest;
+  delete(name: string): Dearest | null;
 }

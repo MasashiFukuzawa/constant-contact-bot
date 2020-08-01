@@ -1,9 +1,9 @@
-import { DearestCreateInteractor } from "../../../src/domain/application/dearest/dearest_create_interactor";
-import { DearestCreatePresenter } from "../../../src/webhook_app/dearest/create/dearest_create_presenter";
+import { DearestDeleteInteractor } from "../../../src/domain/application/dearest/dearest_delete_interactor";
+import { DearestDeletePresenter } from "../../../src/webhook_app/dearest/delete/dearest_delete_presenter";
 import { SpreadsheetDearestRepository } from "../../../src/spreadsheet_infrastructure/dearests/spreadsheet_dearest_repository";
 import { Dearest } from "../../../src/domain/domain/dearest/dearest";
 
-describe('DearestCreateInteractor', () => {
+describe('DearestDeleteInteractor', () => {
   SpreadsheetApp.openById = jest.fn(() => ({
     getSheetByName: jest.fn(() => ({
       getLastRow: jest.fn(() => 4),
@@ -15,7 +15,7 @@ describe('DearestCreateInteractor', () => {
           [3, 'Ochako Uraraka', 3, 1, new Date(2020, 5, 1)],
           [4, 'Shoto Todoroki', 4, 2, new Date(2020, 7, 1)],
         ]),
-        setValues: jest.fn(),
+        clear: jest.fn(),
       })),
     })),
   })) as any;
@@ -35,18 +35,14 @@ describe('DearestCreateInteractor', () => {
     ]);
 
   const sdr = new SpreadsheetDearestRepository();
-  const dcp = new DearestCreatePresenter();
-  const dci = new DearestCreateInteractor(sdr, dcp);
+  const ddp = new DearestDeletePresenter();
+  const ddi = new DearestDeleteInteractor(sdr, ddp);
   const replyToken = 'some_reply_token';
 
   describe('SpreadsheetInfrastructure', () => {
     describe('#handle', () => {
-      it('sends a create message successfully', () => {
-        const name = 'All Might';
-        const typeId = 5;
-        const notificationPeriodId = 4;
-        const lastContactedDate = new Date(2020, 8, 1);
-        dci.handle(replyToken, name, typeId, notificationPeriodId, lastContactedDate);
+      it('sends a delete message successfully', () => {
+        ddi.handle(replyToken, 'Izuku Midoriya');
         expect(UrlFetchApp.fetch).toHaveBeenCalledTimes(1);
       });
     });
