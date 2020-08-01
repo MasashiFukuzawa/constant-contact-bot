@@ -2,25 +2,30 @@ import { Dearest } from "../../../domain/domain/dearest/dearest";
 import { NotificationPeriod } from "../../../domain/domain/notification_period/notification_period";
 
 export class DearestPushOutputData {
-  getNames(dearests: Dearest[], notificationPeriods: NotificationPeriod[]): string[] {
-    const targetData = this.filterDearestData(dearests, notificationPeriods);
-    return targetData.map(e => e.getName().toString());
-  }
+  getMessages(
+    dearests: Dearest[],
+    notificationPeriods: NotificationPeriod[]
+  ): { name: string, message: string }[] {
+    const messages = dearests.map(e => {
+      const name = e.getName().toString();
+      const birthday = e.getBirthday().toString();
+      const today: string = Moment.moment().format('M/D');
+      if (today === birthday) {
+        return { name, message: this.getBirthdayMessage(name) };
+      }
 
-  private filterDearestData(dearests: Dearest[], notificationPeriods: NotificationPeriod[]): Dearest[] {
-    return dearests.filter(e => {
       const notificationPeriodId = e.getNotificationPeriodId().toNumber();
       const lastContactedDate = e.getLastContactedDate().toDate();
-      const birthday = e.getBirthday().toString();
-
-      const now = Moment.moment();
       const notificationPeriod = this.getNotificationPeriod(notificationPeriods, notificationPeriodId);
       const term = notificationPeriod.getTerm().toNumber();
       const unit = notificationPeriod.getUnit().toString();
+      const now = Moment.moment();
       const targetDate: Date = now.subtract(term, unit).toDate();
-
-      return this.isBirthday(birthday) || lastContactedDate < targetDate;
-    })
+      if (lastContactedDate < targetDate) {
+        return { name, message: this.getDefaultMessage(name, `${term}${unit}`) };
+      }
+    });
+    return messages.filter(e => !!e);
   }
 
   private getNotificationPeriod(
@@ -38,8 +43,26 @@ export class DearestPushOutputData {
     };
   }
 
-  private isBirthday(birthday: string): boolean {
-    const today: string = Moment.moment().format('M/D');
-    return today === birthday;
+  private getBirthdayMessage(name: string): string {
+    return `今日は ${name} の誕生日です！\n親愛なる ${name} にお祝いのメッセージを送りましょう！`
+  }
+
+  private getDefaultMessage(name: string, period: string): string {
+    let translatedPeriod: string;
+    switch (period) {
+      case '1week':
+        translatedPeriod = '1週間';
+        break;
+      case '3months':
+        translatedPeriod = '3ヶ月';
+        break;
+      case '6months':
+        translatedPeriod = '半年';
+        break;
+      case '1year':
+        translatedPeriod = '1年';
+          break;
+    }
+    return `${translatedPeriod}ぶりに ${name} と連絡を取ってみませんか？`;
   }
 }

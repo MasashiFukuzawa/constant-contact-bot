@@ -1,3 +1,3 @@
 export interface DearestPushPresenterInterface {
-  pushMessages(names: string[]): void;
+  pushMessages(data: { name: string, message: string }[]): void;
 }

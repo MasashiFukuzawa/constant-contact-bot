@@ -15,7 +15,7 @@ export class DearestPushInteractor implements DearestPushUseCaseInterface {
     const dearests = this.dearestRepository.getAll();
     const notificationPeriods = this.notificationPeriodRepository.getAll();
     const outputData = new DearestPushOutputData();
-    const names = outputData.getNames(dearests, notificationPeriods);
-    this.dearestPushPresenter.pushMessages(names);
+    const data = outputData.getMessages(dearests, notificationPeriods);
+    this.dearestPushPresenter.pushMessages(data);
   }
 }

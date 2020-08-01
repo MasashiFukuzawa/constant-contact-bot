@@ -12,7 +12,7 @@ describe('DearestPushOutputData', () => {
 
   const dearestPushOutputData = new DearestPushOutputData();
 
-  describe('#getNames', () => {
+  describe('#getMessages', () => {
     it('returns dearest names', () => {
       const dearests = [
         new Dearest(1, 'Izuku Midoriya', 1, 3, new Date(2020, 7, 1), '7/15'),
@@ -26,9 +26,19 @@ describe('DearestPushOutputData', () => {
         new NotificationPeriod(3, 6, 'months'),
         new NotificationPeriod(4, 1, 'year')
       ];
-      const names = dearestPushOutputData.getNames(dearests, notificationPeriods);
-      expect(names[0]).toBe('Izuku Midoriya');
-      expect(names[1]).toBe('Shoto Todoroki');
+      const data = dearestPushOutputData.getMessages(dearests, notificationPeriods);
+      expect(data).toStrictEqual(
+        [
+          {
+            name: 'Izuku Midoriya',
+            message: '今日は Izuku Midoriya の誕生日です！\n親愛なる Izuku Midoriya にお祝いのメッセージを送りましょう！'
+          },
+          {
+            name: 'Shoto Todoroki',
+            message: '3ヶ月ぶりに Shoto Todoroki と連絡を取ってみませんか？'
+          }
+        ]
+      );
     });
   });
 });

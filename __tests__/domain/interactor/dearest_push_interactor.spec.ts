@@ -7,7 +7,7 @@ import { DearestPushPresenter } from "../../../src/webhook_app/dearest/push/dear
 
 describe('DearestPushInteractor', () => {
   Moment.moment = jest.fn(() => ({
-    format: jest.fn(() => '8/1'),
+    format: jest.fn(() => '7/15'),
     subtract: jest.fn(() => ({
       toDate: jest.fn(() => new Date(2020, 4, 25))
     })),
@@ -19,10 +19,10 @@ describe('DearestPushInteractor', () => {
       getLastColumn: jest.fn(() => 5),
       getRange: jest.fn(() => ({
         getValues: jest.fn(() => [
-          [1, 'Izuku Midoriya', 1, 3, new Date(2020, 1, 1), '7/15'],
-          [2, 'Katsuki Bakugo', 2, 3, new Date(2020, 3, 1), '4/20'],
+          [1, 'Izuku Midoriya', 1, 3, new Date(2020, 7, 1), '7/15'],
+          [2, 'Katsuki Bakugo', 2, 3, new Date(2020, 6, 1), '4/20'],
           [3, 'Ochako Uraraka', 3, 1, new Date(2020, 5, 1), '12/27'],
-          [4, 'Shoto Todoroki', 4, 2, new Date(2020, 7, 1), '1/11'],
+          [4, 'Shoto Todoroki', 4, 2, new Date(2020, 4, 1), '1/11'],
         ])
       })),
     })),
@@ -39,10 +39,10 @@ describe('DearestPushInteractor', () => {
     const snpr = new SpreadsheetNotificationPeriodRepository();
     jest.spyOn(SpreadsheetDearestRepository.prototype, 'getAll')
       .mockReturnValue([
-        new Dearest(1, 'Izuku Midoriya', 1, 3, new Date(2020, 1, 1), '7/15'),
-        new Dearest(2, 'Katsuki Bakugo', 2, 3, new Date(2020, 3, 1), '4/20'),
+        new Dearest(1, 'Izuku Midoriya', 1, 3, new Date(2020, 7, 1), '7/15'),
+        new Dearest(2, 'Katsuki Bakugo', 2, 3, new Date(2020, 6, 1), '4/20'),
         new Dearest(3, 'Ochako Uraraka', 3, 1, new Date(2020, 5, 1), '12/27'),
-        new Dearest(4, 'Shoto Todoroki', 4, 2, new Date(2020, 7, 1), '1/11'),
+        new Dearest(4, 'Shoto Todoroki', 4, 2, new Date(2020, 4, 1), '1/11'),
       ]);
     jest.spyOn(SpreadsheetNotificationPeriodRepository.prototype, 'getAll')
       .mockReturnValue([
