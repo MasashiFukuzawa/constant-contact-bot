@@ -11,4 +11,8 @@ Dearest {
   lastContactedDate: ${dearest.getLastContactedDate().toDate().toLocaleString()}
 }`;
   }
+
+  getErrorMessage(errorMessage: string): string {
+    return `Validation ${errorMessage}`;
+  }
 }

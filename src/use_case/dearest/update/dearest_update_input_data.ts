@@ -6,8 +6,8 @@ export class DearestUpdateInputData {
     const argTypeId = contents.filter(RegExp.prototype.test, /^t:.+/g)[0];
     const argNotificationPeriodId = contents.filter(RegExp.prototype.test, /^p:.+/g)[0];
     const name = argName.slice(2);
-    const typeId = argTypeId ? +argTypeId.slice(2) : null;
-    const notificationPeriodId = argNotificationPeriodId ? +argNotificationPeriodId.slice(2) : null;
+    const typeId = argTypeId ? Number(argTypeId.slice(2)) : null;
+    const notificationPeriodId = argNotificationPeriodId ? Number(argNotificationPeriodId.slice(2)) : null;
     return { name, typeId, notificationPeriodId };
   }
 

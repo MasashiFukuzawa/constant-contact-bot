@@ -14,8 +14,8 @@ export class DearestCreateInputData {
     const argNotificationPeriodId = contents.filter(RegExp.prototype.test, /^p:.+/g)[0];
     const argLastContactedDate = contents.filter(RegExp.prototype.test, /^l:.+/g)[0];
     const name = argName ? argName.slice(2) : null;
-    const typeId = argTypeId ? +argTypeId.slice(2) : null;
-    const notificationPeriodId = argNotificationPeriodId ? +argNotificationPeriodId.slice(2) : null;
+    const typeId = argTypeId ? Number(argTypeId.slice(2)) : null;
+    const notificationPeriodId = argNotificationPeriodId ? Number(argNotificationPeriodId.slice(2)) : null;
     const lastContactedDate = argLastContactedDate ? Moment.moment(argLastContactedDate.slice(2)).toDate() : null;
     return { name, typeId, notificationPeriodId, lastContactedDate };
   }
