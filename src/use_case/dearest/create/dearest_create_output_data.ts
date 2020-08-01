@@ -12,7 +12,11 @@ Dearest {
 }`;
   }
 
-  getErrorMessage(errorMessage: string): string {
-    return `Validation ${errorMessage}`;
+  getErrorMessage(errorMessage: string, name: string): string {
+    if (errorMessage) {
+      return `Validation ${errorMessage}`;
+    } else {
+      return `Unique制約に引っ掛かりました。${name} さんは既に登録されています。`;
+    }
   }
 }
