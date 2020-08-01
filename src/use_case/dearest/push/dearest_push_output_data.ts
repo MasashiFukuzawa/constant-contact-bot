@@ -2,10 +2,7 @@ import { Dearest } from "../../../domain/domain/dearest/dearest";
 import { NotificationPeriod } from "../../../domain/domain/notification_period/notification_period";
 
 export class DearestPushOutputData {
-  getNames(
-    dearests: Dearest[],
-    notificationPeriods: NotificationPeriod[]
-  ): string[] {
+  getNames(dearests: Dearest[], notificationPeriods: NotificationPeriod[]): string[] {
     const targetData = this.filterDearestData(dearests, notificationPeriods);
     return targetData.map(e => e.getName().toString());
   }
@@ -14,14 +11,15 @@ export class DearestPushOutputData {
     return dearests.filter(e => {
       const notificationPeriodId = e.getNotificationPeriodId().toNumber();
       const lastContactedDate = e.getLastContactedDate().toDate();
+      const birthday = e.getBirthday().toString();
 
       const now = Moment.moment();
       const notificationPeriod = this.getNotificationPeriod(notificationPeriods, notificationPeriodId);
       const term = notificationPeriod.getTerm().toNumber();
       const unit = notificationPeriod.getUnit().toString();
-
       const targetDate: Date = now.subtract(term, unit).toDate();
-      return lastContactedDate < targetDate;
+
+      return this.isBirthday(birthday) || lastContactedDate < targetDate;
     })
   }
 
@@ -38,5 +36,10 @@ export class DearestPushOutputData {
       const errorMessage = 'notification_periodsテーブル中に、該当するNotificationPeriodが見つかりませんでした';
       throw new Error(`${errorMessage}: notificationPeriodId = ${notificationPeriodId}`);
     };
+  }
+
+  private isBirthday(birthday: string): boolean {
+    const today: string = Moment.moment().format('M/D');
+    return today === birthday;
   }
 }

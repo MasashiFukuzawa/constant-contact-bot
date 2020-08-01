@@ -7,10 +7,12 @@ import { DearestPushPresenter } from "../../../src/webhook_app/dearest/push/dear
 
 describe('DearestPushInteractor', () => {
   Moment.moment = jest.fn(() => ({
+    format: jest.fn(() => '8/1'),
     subtract: jest.fn(() => ({
       toDate: jest.fn(() => new Date(2020, 4, 25))
     })),
   }));
+
   SpreadsheetApp.openById = jest.fn(() => ({
     getSheetByName: jest.fn(() => ({
       getLastRow: jest.fn(() => 4),
@@ -25,9 +27,11 @@ describe('DearestPushInteractor', () => {
       })),
     })),
   })) as any;
+
   PropertiesService.getScriptProperties = jest.fn(() => ({
     getProperty: jest.fn(() => 'xxxxxxx')
   })) as any;
+
   UrlFetchApp.fetch = jest.fn();
 
   describe('SpreadsheetInfrastructure', () => {
