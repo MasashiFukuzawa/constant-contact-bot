@@ -25,7 +25,7 @@ export class DearestCreateInteractor implements DearestCreateUseCaseInterface {
       const dearest = this.dearestRepository.create(name, typeId, notificationPeriodId, lastContactedDate);
       outputData = dearestCreateOutputData.getMessage(dearest);
     } else {
-      outputData = validation.errorMessage;
+      outputData = dearestCreateOutputData.getErrorMessage(validation.errorMessage);
     }
     this.dearestCreatePresenter.replyMessage(replyToken, outputData);
   }
