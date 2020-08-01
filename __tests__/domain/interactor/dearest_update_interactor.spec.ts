@@ -41,7 +41,7 @@ describe('DearestUpdateInteractor', () => {
             new Dearest(3, 'Ochako Uraraka', 3, 1, new Date(2020, 5, 1)),
             new Dearest(4, 'Shoto Todoroki', 4, 2, new Date(2020, 7, 1)),
           ]);
-        dui.handle(replyToken, name, typeId, notificationPeriodId)
+        dui.handle(replyToken, name, typeId, notificationPeriodId);
         expect(UrlFetchApp.fetch).toHaveBeenCalledTimes(1);
       });
     });

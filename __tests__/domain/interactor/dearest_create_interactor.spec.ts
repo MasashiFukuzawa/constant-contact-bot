@@ -46,7 +46,7 @@ describe('DearestCreateInteractor', () => {
         const typeId = 5;
         const notificationPeriodId = 4;
         const lastContactedDate = new Date(2020, 8, 1);
-        dci.handle(replyToken, name, typeId, notificationPeriodId, lastContactedDate)
+        dci.handle(replyToken, name, typeId, notificationPeriodId, lastContactedDate);
         expect(UrlFetchApp.fetch).toHaveBeenCalledTimes(1);
       });
     });
