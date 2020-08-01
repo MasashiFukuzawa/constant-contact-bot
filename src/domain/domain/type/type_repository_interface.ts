@@ -1,3 +1,5 @@
+import { Type } from "./type";
+
 export class TypeRepositoryInterface {
-  getAll(): any[][];
+  getAll(): Type[];
 }

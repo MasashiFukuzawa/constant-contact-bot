@@ -2,8 +2,8 @@ import { DearestHelpPresenterInterface } from "../../../use_case/dearest/help/de
 import { DearestHelpViewModel } from "./dearest_help_view_model";
 
 export class DearestHelpPresenter implements DearestHelpPresenterInterface {
-  showHowToUse(helpMessage: string): void {
+  replyMessage(event: any, helpMessage: string): void {
     const publisher = new DearestHelpViewModel();
-    publisher.showHowToUse(helpMessage);
+    publisher.replyMessage(event, helpMessage);
   }
 }

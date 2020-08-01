@@ -1,16 +1,24 @@
+import { NotificationPeriod } from "../../domain/domain/notification_period/notification_period";
 import { NotificationPeriodRepositoryInterface } from "../../domain/domain/notification_period/notification_period_repository_interface";
 import Spreadsheet = GoogleAppsScript.Spreadsheet.Spreadsheet;
 import Sheet = GoogleAppsScript.Spreadsheet.Sheet;
 
 export class SpreadsheetNotificationPeriodRepository implements NotificationPeriodRepositoryInterface {
-  getAll(): any[][] {
+  getAll(): NotificationPeriod[] {
     const ss: Spreadsheet = SpreadsheetApp.openById(
       PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID")
     );
     const ws: Sheet = ss.getSheetByName("notification_periods");
     const lastRow = ws.getLastRow();
     const lastCol = ws.getLastColumn();
-    const allNotificationPeriodsData = ws.getRange(2, 1, lastRow, lastCol).getValues();
-    return allNotificationPeriodsData.filter((e) => !!e[0]);
+    const rawData = ws.getRange(2, 1, lastRow, lastCol).getValues();
+    const fullData = rawData.filter((e) => !!e[0]);
+    return this.map(fullData);
+  }
+
+  private map(fullData: any[][]): NotificationPeriod[] {
+    return fullData.map((d) => {
+      return new NotificationPeriod(d[0], d[1], d[2]);
+    });
   }
 }

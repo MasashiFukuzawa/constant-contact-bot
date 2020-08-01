@@ -1,3 +1,3 @@
 export interface DearestHelpUseCaseInterface {
-  handle(): void;
+  handle(replyToken: string): void;
 }

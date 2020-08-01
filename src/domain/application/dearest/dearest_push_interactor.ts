@@ -4,7 +4,6 @@ import { NotificationPeriodRepositoryInterface } from "../../domain/notification
 import { DearestPushPresenterInterface } from "../../../use_case/dearest/push/dearest_push_presenter_interface";
 import { Dearest } from "../../domain/dearest/dearest";
 import { NotificationPeriod } from "../../domain/notification_period/notification_period";
-import { DearestInteractorCommon } from "./common/dearest_interactor_common";
 
 export class DearestPushInteractor implements DearestPushUseCaseInterface {
   constructor(
@@ -14,13 +13,9 @@ export class DearestPushInteractor implements DearestPushUseCaseInterface {
   ) {}
 
   handle(): void {
-    const rawDearestData = this.dearestRepository.getAll();
-    const mappedDearestsData = DearestInteractorCommon.mapRawDearestData(rawDearestData);
-
-    const rawNotificationPeriodData = this.notificationPeriodRepository.getAll();
-    const mappedNotificationPeriodsData = DearestInteractorCommon.mapRawNotificationPeriodData(rawNotificationPeriodData);
-
-    const names = this.extractDearestNames(mappedDearestsData, mappedNotificationPeriodsData);
+    const dearests = this.dearestRepository.getAll();
+    const notificationPeriods = this.notificationPeriodRepository.getAll();
+    const names = this.extractDearestNames(dearests, notificationPeriods);
     this.dearestPushPresenter.pushMessages(names);
   }
 

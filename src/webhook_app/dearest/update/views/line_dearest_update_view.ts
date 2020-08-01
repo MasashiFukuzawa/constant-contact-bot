@@ -1,10 +1,10 @@
 import { Line } from "../../../../constants/constants";
 import { LineViewComponent } from "../../../view_component/line_view_component";
 
-export class LineDearestHelpView {
-  replyMessage(replyToken: string, helpMessage: string): void {
+export class LineDearestUpdateView {
+  replyMessage(replyToken: string, message: string): void {
     const line = new LineViewComponent();
-    const replyData = line.getReplyData(replyToken, helpMessage);
+    const replyData = line.getReplyData(replyToken, message);
     UrlFetchApp.fetch(Line.REPLY_URL, line.getOptions(replyData));
   }
 

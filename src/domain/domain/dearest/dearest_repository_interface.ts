@@ -1,3 +1,7 @@
+import { Dearest } from "./dearest";
+
 export interface DearestRepositoryInterface {
-  getAll(): any[][];
+  getAll(): Dearest[];
+  findByName(name: string): Dearest | null;
+  update(dearest: Dearest, typeId: number | null, notificationPeriodId: number | null): Dearest;
 }
