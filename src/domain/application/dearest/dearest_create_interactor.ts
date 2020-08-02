@@ -15,14 +15,15 @@ export class DearestCreateInteractor implements DearestCreateUseCaseInterface {
     name: string,
     typeId: number,
     notificationPeriodId: number,
-    lastContactedDate: Date
+    lastContactedDate: Date,
+    birthday: string
   ): void {
     const isUnique = !this.dearestRepository.findByName(name);
-    const validation = Dearest.isValid(name, typeId, notificationPeriodId, lastContactedDate);
+    const validation = Dearest.isValid(name, typeId, notificationPeriodId, lastContactedDate, birthday);
     const dearestCreateOutputData = new DearestCreateOutputData();
     let outputData: string = null;
     if (isUnique && validation.isValid) {
-      const dearest = this.dearestRepository.create(name, typeId, notificationPeriodId, lastContactedDate);
+      const dearest = this.dearestRepository.create(name, typeId, notificationPeriodId, lastContactedDate, birthday);
       outputData = dearestCreateOutputData.getMessage(dearest);
     } else {
       outputData = dearestCreateOutputData.getErrorMessage(validation.errorMessage, name);

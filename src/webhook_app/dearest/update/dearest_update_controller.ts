@@ -1,5 +1,5 @@
 import { DearestUpdateUseCaseInterface } from '../../../use_case/dearest/update/dearest_update_use_case_interface';
-import { DearestUpdateInputData } from "../../../use_case/dearest/update/dearest_update_input_data";
+import { DearestUpdateInputData, UpdateInputData } from "../../../use_case/dearest/update/dearest_update_input_data";
 
 export class DearestUpdateController {
   constructor(private readonly dearestUpdateUseCase: DearestUpdateUseCaseInterface) {}
@@ -10,14 +10,15 @@ export class DearestUpdateController {
       replyToken,
       params.name,
       params.typeId,
-      params.notificationPeriodId
+      params.notificationPeriodId,
+      params.birthday
     );
   }
 
   private getParams(
     eventType: string,
     str: string
-  ): {name: string, typeId: number | null, notificationPeriodId: number | null} {
+  ): UpdateInputData {
     const inputData = new DearestUpdateInputData();
     switch (eventType) {
       case 'message':

@@ -6,14 +6,14 @@ describe('DearestUpdateInputData', () => {
   describe('#parseTextFromMessage', () => {
     it('parses input text correctly', () => {
       const result = dearestUpdateInputData.parseTextFromMessage('update -d n:Midoriya t:1 p:3');
-      expect(result).toStrictEqual({ name: 'Midoriya', typeId: 1, notificationPeriodId: 3 });
+      expect(result).toStrictEqual({ name: 'Midoriya', typeId: 1, notificationPeriodId: 3, birthday: null });
     });
   });
 
   describe('#parseDataFromPostBack', () => {
     it('parses input data correctly', () => {
       const result = dearestUpdateInputData.parseDataFromPostBack('name=Midoriya');
-      expect(result).toStrictEqual({ name: 'Midoriya', typeId: null, notificationPeriodId: null });
+      expect(result).toStrictEqual({ name: 'Midoriya', typeId: null, notificationPeriodId: null, birthday: null });
     });
   });
 });

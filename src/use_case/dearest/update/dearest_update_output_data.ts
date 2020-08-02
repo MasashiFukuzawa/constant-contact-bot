@@ -8,7 +8,8 @@ Dearest {
   name: ${dearest.getName().toString()},
   typeId: ${dearest.getTypeId().toNumber()},
   notificationPeriodId: ${dearest.getNotificationPeriodId().toNumber()},
-  lastContactedDate: ${dearest.getLastContactedDate().toDate().toLocaleString()}
+  lastContactedDate: ${Moment.moment(dearest.getLastContactedDate().toDate()).format('YYYY/MM/DD')},
+  birthday: ${!!dearest.getBirthday() ? dearest.getBirthday().toString() : 'null'}
 }`;
   }
 

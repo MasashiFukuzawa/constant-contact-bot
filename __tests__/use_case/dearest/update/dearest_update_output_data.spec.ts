@@ -2,11 +2,15 @@ import { DearestUpdateOutputData } from "../../../../src/use_case/dearest/update
 import { Dearest } from "../../../../src/domain/domain/dearest/dearest";
 
 describe('DearestUpdateOutputData', () => {
+  Moment.moment = jest.fn(() => ({
+    format: jest.fn(() => '2020/8/1')
+  }));
+
   const dearestUpdateOutputData = new DearestUpdateOutputData();
 
   describe('#getMessage', () => {
     it('returns output text correctly', () => {
-      const dearest = new Dearest(1, 'Midoriya Izuku', 1, 3, new Date(2020, 8, 1, 1, 18, 0));
+      const dearest = new Dearest(1, 'Midoriya Izuku', 1, 3, new Date(2020, 8, 1, 1, 18, 0), null);
       const result = dearestUpdateOutputData.getMessage(dearest);
       expect(result).toBe(`Midoriya Izuku さんの情報を更新しました。
 Dearest {
@@ -14,7 +18,8 @@ Dearest {
   name: Midoriya Izuku,
   typeId: 1,
   notificationPeriodId: 3,
-  lastContactedDate: 2020/9/1 1:18:00
+  lastContactedDate: 2020/8/1,
+  birthday: null
 }`
     )});
   });

@@ -2,15 +2,11 @@ import { Line } from "../../../../constants/constants";
 import { LineViewComponent } from "../../../view_component/line_view_component";
 
 export class LineDearestPushView {
-  pushMessages(names: string[]): void {
+  pushMessages(data: { name: string, message: string }[]): void {
     const line = new LineViewComponent()
     const altText = this.getAltText();
-    names.forEach(e => {
-      const postData = line.getConfirmTypePushData(
-        altText,
-        this.getText(e),
-        this.getActions(e)
-      );
+    data.forEach(e => {
+      const postData = line.getConfirmTypePushData(altText, e.message, this.getActions(e.name));
       UrlFetchApp.fetch(Line.PUSH_URL, line.getOptions(postData));
     });
   }
@@ -21,10 +17,6 @@ export class LineDearestPushView {
 
   private getAltText(): string {
     return "久しぶりに大切な人に連絡を取りましょう\uDBC0\uDC40";
-  }
-
-  private getText(name: string): string {
-    return `久しぶりに ${name} に連絡を取ってみませんか？`;
   }
 
   private getActions(name: string): object[] {

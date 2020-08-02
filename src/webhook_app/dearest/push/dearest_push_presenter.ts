@@ -2,8 +2,8 @@ import { DearestPushPresenterInterface } from "../../../use_case/dearest/push/de
 import { DearestPushViewModel } from "./dearest_push_view_model";
 
 export class DearestPushPresenter implements DearestPushPresenterInterface {
-  pushMessages(names: string[]): void {
+  pushMessages(data: { name: string, message: string }[]): void {
     const publisher = new DearestPushViewModel();
-    publisher.pushMessages(names);
+    publisher.pushMessages(data);
   }
 }

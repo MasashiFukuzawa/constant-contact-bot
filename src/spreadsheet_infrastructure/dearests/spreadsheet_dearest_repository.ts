@@ -26,26 +26,40 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
     const dearest = this.fullData.filter(e => {
       return e.getName().toString() === name;
     })[0];
-    return dearest === undefined ? null : dearest;
+    return !!dearest ? dearest : null;
   }
 
-  create(name: string, typeId: number, notificationPeriodId: number, lastContactedDate: Date): Dearest {
+  create(
+    name: string,
+    typeId: number,
+    notificationPeriodId: number,
+    lastContactedDate: Date,
+    birthday: string
+  ): Dearest {
     const id = Dearest.issueNewDearestId(this.lastRow);
     this.sheet.getRange(id + 1, 1, 1, this.lastCol)
-      .setValues([[id, name, typeId, notificationPeriodId, lastContactedDate]]);
-    return new Dearest(id, name, typeId, notificationPeriodId, lastContactedDate);
+      .setValues([[id, name, typeId, notificationPeriodId, lastContactedDate, birthday]]);
+    return new Dearest(id, name, typeId, notificationPeriodId, lastContactedDate, birthday);
   }
 
-  update(dearest: Dearest, typeId: number | null, notificationPeriodId: number | null): Dearest {
+  update(
+    dearest: Dearest,
+    typeId: number | null,
+    notificationPeriodId: number | null,
+    birthday: string | null,
+    wantToUpdateLastContactedDate = true
+  ): Dearest {
     const dearestId = dearest.getId().toNumber();
     const tId = typeId || dearest.getTypeId().toNumber();
     const npId = notificationPeriodId || dearest.getNotificationPeriodId().toNumber();
-    const now = new Date();
+    const lastContactedDate = wantToUpdateLastContactedDate ? new Date() : dearest.getLastContactedDate().toDate();
+    const bd = birthday || dearest.getBirthday().toString();
     this.sheet.getRange(dearestId + 1, 1, 1, this.lastCol)
-      .setValues([[dearestId, dearest.getName().toString(), tId, npId, now]]);
+      .setValues([[dearestId, dearest.getName().toString(), tId, npId, lastContactedDate, bd]]);
     dearest.setTypeId(tId);
     dearest.setNotificationPeriodId(npId);
-    dearest.setLastContactedDate(now);
+    dearest.setLastContactedDate(lastContactedDate);
+    dearest.setBirthday(bd);
     return dearest;
   }
 
@@ -79,7 +93,7 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
 
   private map(fullData: any[][]): Dearest[] {
     return fullData.map(e => {
-      return new Dearest(e[0], e[1], e[2], e[3], e[4]);
+      return new Dearest(e[0], e[1], e[2], e[3], e[4], e[5]);
     });
   }
 }
