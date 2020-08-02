@@ -14,7 +14,8 @@ export interface DearestRepositoryInterface {
     dearest: Dearest,
     typeId: number | null,
     notificationPeriodId: number | null,
-    birthday: string | null
+    birthday: string | null,
+    wantToUpdateLastContactedDate?: boolean
   ): Dearest;
   delete(name: string): Dearest | null;
 }

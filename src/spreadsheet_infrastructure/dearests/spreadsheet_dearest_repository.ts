@@ -42,16 +42,24 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
     return new Dearest(id, name, typeId, notificationPeriodId, lastContactedDate, birthday);
   }
 
-  update(dearest: Dearest, typeId: number | null, notificationPeriodId: number | null): Dearest {
+  update(
+    dearest: Dearest,
+    typeId: number | null,
+    notificationPeriodId: number | null,
+    birthday: string | null,
+    wantToUpdateLastContactedDate = true
+  ): Dearest {
     const dearestId = dearest.getId().toNumber();
     const tId = typeId || dearest.getTypeId().toNumber();
     const npId = notificationPeriodId || dearest.getNotificationPeriodId().toNumber();
-    const now = new Date();
+    const lastContactedDate = wantToUpdateLastContactedDate ? new Date() : dearest.getLastContactedDate().toDate();
+    const bd = birthday || dearest.getBirthday().toString();
     this.sheet.getRange(dearestId + 1, 1, 1, this.lastCol)
-      .setValues([[dearestId, dearest.getName().toString(), tId, npId, now]]);
+      .setValues([[dearestId, dearest.getName().toString(), tId, npId, lastContactedDate, bd]]);
     dearest.setTypeId(tId);
     dearest.setNotificationPeriodId(npId);
-    dearest.setLastContactedDate(now);
+    dearest.setLastContactedDate(lastContactedDate);
+    dearest.setBirthday(bd);
     return dearest;
   }
 
