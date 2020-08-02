@@ -2,7 +2,7 @@ import { Dearest } from "../../../domain/domain/dearest/dearest";
 
 export class DearestUpdateOutputData {
   getMessage(dearest: Dearest): string {
-    return `${dearest.getName().toString()} さんの情報を更新しました。
+    return `${dearest.getName().toString()} の情報を更新しました。
 Dearest {
   id: ${dearest.getId().toNumber()},
   name: ${dearest.getName().toString()},

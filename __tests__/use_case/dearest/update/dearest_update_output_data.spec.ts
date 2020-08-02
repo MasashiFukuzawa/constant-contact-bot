@@ -12,7 +12,7 @@ describe('DearestUpdateOutputData', () => {
     it('returns output text correctly', () => {
       const dearest = new Dearest(1, 'Midoriya Izuku', 1, 3, new Date(2020, 8, 1, 1, 18, 0), null);
       const result = dearestUpdateOutputData.getMessage(dearest);
-      expect(result).toBe(`Midoriya Izuku さんの情報を更新しました。
+      expect(result).toBe(`Midoriya Izuku の情報を更新しました。
 Dearest {
   id: 1,
   name: Midoriya Izuku,

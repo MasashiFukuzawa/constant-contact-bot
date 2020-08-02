@@ -109,6 +109,11 @@ package.json
 }
 ```
 
+テスト実行は以下のコマンドを叩けば良い
+```sh:
+$ npm test
+```
+
 ## GAS
 ```sh:
 $ clasp create --title "YOUR APP TITLE" --type sheets --rootDir ./src

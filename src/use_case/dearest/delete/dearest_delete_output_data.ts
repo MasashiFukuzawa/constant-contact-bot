@@ -2,7 +2,7 @@ import { Dearest } from "../../../domain/domain/dearest/dearest";
 
 export class DearestDeleteOutputData {
   getMessage(dearest: Dearest): string {
-    return `${dearest.getName().toString()} さんの情報を削除しました。
+    return `${dearest.getName().toString()} の情報を削除しました。
 Dearest {
   id: ${dearest.getId().toNumber()},
   name: ${dearest.getName().toString()},
