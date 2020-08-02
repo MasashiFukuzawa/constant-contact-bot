@@ -17,7 +17,7 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
 
   getAll(): Dearest[] {
     if (this.fullData) return this.fullData;
-    const rawData = this.sheet.getRange(2, 1, this.lastRow, this.lastCol).getValues();
+    const rawData = this.sheet.getRange(2, 1, this.lastRow - 1, this.lastCol).getValues();
     const fullData = rawData.filter(e => !!e[0]);
     return this.map(fullData);
   }

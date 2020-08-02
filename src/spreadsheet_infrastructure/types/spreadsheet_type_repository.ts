@@ -11,7 +11,7 @@ export class SpreadsheetTypeRepository implements TypeRepositoryInterface {
     const ws: Sheet = ss.getSheetByName("types");
     const lastRow = ws.getLastRow();
     const lastCol = ws.getLastColumn();
-    const rawData = ws.getRange(2, 1, lastRow, lastCol).getValues();
+    const rawData = ws.getRange(2, 1, lastRow - 1, lastCol).getValues();
     const fullData = rawData.filter(e => !!e[0]);
     return this.map(fullData);
   }
