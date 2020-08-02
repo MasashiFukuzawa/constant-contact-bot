@@ -9,7 +9,7 @@ describe('DearestCreateInputData', () => {
 
   describe('#parseTextFromMessage', () => {
     it('parses input text correctly', () => {
-      const result = dearestCreateInputData.parseTextFromMessage('create -d n:Midoriya t:1 p:3 l:2020/8/1');
+      const result = dearestCreateInputData.parseTextFromMessage('create Midoriya 1 3 2020/8/1');
       expect(result).toStrictEqual({
         name: 'Midoriya',
         typeId: 1,

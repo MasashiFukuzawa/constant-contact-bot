@@ -5,7 +5,7 @@ describe('DearestUpdateInputData', () => {
 
   describe('#parseTextFromMessage', () => {
     it('parses input text correctly', () => {
-      const result = dearestUpdateInputData.parseTextFromMessage('update -d n:Midoriya t:1 p:3');
+      const result = dearestUpdateInputData.parseTextFromMessage('update Midoriya 1 3');
       expect(result).toStrictEqual({ name: 'Midoriya', typeId: 1, notificationPeriodId: 3, birthday: null });
     });
   });

@@ -35,11 +35,11 @@ class DoPost {
   execControllerAction(replyToken: string, eventType: string, text: string): void {
     if (text === 'help') {
       return this.execDearestHelpAction(replyToken);
-    } else if (text.indexOf('create -d') !== -1) {
+    } else if (text.indexOf('create') !== -1) {
       return this.execDearestCreateAction(replyToken, text);
-    } else if (text.indexOf('update -d') !== -1) {
+    } else if (text.indexOf('update') !== -1) {
       return this.execDearestUpdateAction(replyToken, eventType, text);
-    } else if (text.indexOf('delete -d') !== -1) {
+    } else if (text.indexOf('delete') !== -1) {
       return this.execDearestDeleteAction(replyToken, text);
     }
   }
