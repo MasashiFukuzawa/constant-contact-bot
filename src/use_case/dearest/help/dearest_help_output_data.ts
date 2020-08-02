@@ -29,7 +29,7 @@ export class DearestHelpOutputData {
 
     e.g.) delete pitt
 
-    arguments: name
+    argument: name
 
 References:
 
