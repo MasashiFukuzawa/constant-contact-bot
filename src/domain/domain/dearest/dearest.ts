@@ -64,7 +64,7 @@ export class Dearest {
     return this.birthday;
   }
 
-  setLasBirthday(birthday: string): void {
+  setBirthday(birthday: string): void {
     this.birthday = new DearestBirthday(birthday);
   }
 

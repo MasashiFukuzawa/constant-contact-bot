@@ -61,13 +61,23 @@ describe('DearestRepository', () => {
   });
 
   describe('#update', () => {
-    it('updates successfully', () => {
-      const spy = jest.spyOn(global, 'Date').mockImplementation();
-      const dearest = new Dearest(1, 'Izuku Midoriya', 1, 3, new Date(2020, 1, 1), '7/15');
-      const updatedDearest = sdr.update(dearest, 4, 4);
-      expect(updatedDearest).toStrictEqual(new Dearest(1, 'Izuku Midoriya', 4,  4, new Date(), '7/15'));
-      spy.mockReset();
-      spy.mockRestore();
+    describe('when wants to update lastContactedDate', () => {
+      it('updates successfully', () => {
+        const spy = jest.spyOn(global, 'Date').mockImplementation();
+        const dearest = new Dearest(1, 'Izuku Midoriya', 1, 3, new Date(2020, 1, 1), '7/15');
+        const updatedDearest = sdr.update(dearest, 4, 4, null);
+        expect(updatedDearest).toStrictEqual(new Dearest(1, 'Izuku Midoriya', 4,  4, new Date(), '7/15'));
+        spy.mockReset();
+        spy.mockRestore();
+      });
+    });
+
+    describe('when does not want to update lastContactedDate', () => {
+      it('updates successfully', () => {
+        const dearest = new Dearest(1, 'Izuku Midoriya', 1, 3, new Date(2020, 1, 1), '7/15');
+        const updatedDearest = sdr.update(dearest, 4, 4, null, false);
+        expect(updatedDearest).toStrictEqual(new Dearest(1, 'Izuku Midoriya', 4,  4, new Date(2020, 1, 1), '7/15'));
+      });
     });
   });
 
