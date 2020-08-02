@@ -26,7 +26,7 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
     const dearest = this.fullData.filter(e => {
       return e.getName().toString() === name;
     })[0];
-    return dearest === undefined ? null : dearest;
+    return !!dearest ? dearest : null;
   }
 
   create(
