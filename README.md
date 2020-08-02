@@ -1,6 +1,6 @@
 # 概要
 - スプレッドシートに登録した家族・友人に長期間連絡を取っていなかった時に連絡を促すLINE bot
-- Google Apps Script × TypeScript でDDDライクに実装
+- Google Apps Script × TypeScript でクリーンアーキテクチャライクに実装
 
 # 機能紹介
 ## LINEへの通知
