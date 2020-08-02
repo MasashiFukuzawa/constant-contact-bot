@@ -9,7 +9,7 @@ Dearest {
   typeId: ${dearest.getTypeId().toNumber()},
   notificationPeriodId: ${dearest.getNotificationPeriodId().toNumber()},
   lastContactedDate: ${Moment.moment(dearest.getLastContactedDate().toDate()).format('YYYY/MM/DD')},
-  birthday: ${!!dearest.getBirthday() ? dearest.getBirthday().toString() : 'null'}
+  birthday: ${!!dearest.getBirthday().toString() ? dearest.getBirthday().toString() : 'null'}
 }`;
   }
 

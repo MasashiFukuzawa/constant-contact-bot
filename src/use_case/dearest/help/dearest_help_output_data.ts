@@ -2,25 +2,34 @@ export class DearestHelpOutputData {
   getMessage(): string {
     return `Here's how to use LINE commands.
 
-1) create -d n:{name} t:{type_id} p:{notification_period_id} l:{last_contacted_date} b:{birthday}
+1) create
 
-    n:, t:, p:, l: are required. b: is optional.
+    e.g.) create pitt 1 3 2016/12/24 7/19
 
-    e.g.) create -d n:pitt t:1 p:3 l:2016/12/24 b:7/19
+    arguments: {
+      1st: name,
+      2nd: type_id,
+      3rd: notification_period_id,
+      4th: last_contacted_date,
+      5th: birthday (optional)
+    }
 
-2) update -d n:{name} t:{type_id} p:{notification_period_id} b:{birthday}
+2) update
 
-    n: is required. t:, p:, l:, b: are optional.
+    e.g.) update pitt 1 3 2016/12/24 7/19
 
-    e.g.) update -d n:pitt t:1 p:3 l:2016/12/24 b:7/19
+    arguments: {
+      1st: name,
+      2nd: type_id (optional),
+      3rd: notification_period_id (optional),
+      4th: birthday (optional)
+    }
 
-3) delete -d n:{name}
+3) delete
 
-    n: is required.
+    e.g.) delete pitt
 
-    e.g.) delete -d n:pitt
-
-4) help
+    arguments: name
 
 References:
 
