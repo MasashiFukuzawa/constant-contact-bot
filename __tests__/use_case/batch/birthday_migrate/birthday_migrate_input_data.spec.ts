@@ -9,7 +9,7 @@ describe('BirthdayMigrateInputData', () => {
         {title: 'Izuku Midoriyaの誕生日', month: 7, day: 15 },
         {title: 'Katsuki Bakugo とバトル', month: 7, day: 15 },
         {title: 'Ochako Uraraka とデート', month: 8, day: 2 },
-        {title: 'Shoto Todorokiの誕生日', month: 1, day: 11 }
+        {title: 'Shoto Todoroki誕生日', month: 1, day: 11 }
         {title: 'All Might     の誕生日', month: 6, day: 10 }
       ]
       const birthdayData = dearestCreateInputData.getBirthdayData(events);
