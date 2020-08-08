@@ -8,10 +8,10 @@ import { DearestBirthday } from './value_object/dearest_birthday';
 export class Dearest {
   private readonly id: DearestId;
   private readonly name: DearestName;
-  private typeId: DearestTypeId;
-  private notificationPeriodId: DearestNotificationPeriodId;
-  private lastContactedDate: DearestLastContactedDate;
-  private birthday: DearestBirthday;
+  private readonly typeId: DearestTypeId;
+  private readonly notificationPeriodId: DearestNotificationPeriodId;
+  private readonly lastContactedDate: DearestLastContactedDate;
+  private readonly birthday: DearestBirthday;
   constructor(
     id: number,
     name: string,
@@ -40,32 +40,16 @@ export class Dearest {
     return this.typeId;
   }
 
-  setTypeId(typeId: number): void {
-    this.typeId = new DearestTypeId(typeId);
-  }
-
   getNotificationPeriodId(): DearestNotificationPeriodId {
     return this.notificationPeriodId;
-  }
-
-  setNotificationPeriodId(notificationPeriodId: number): void {
-    this.notificationPeriodId = new DearestNotificationPeriodId(notificationPeriodId);
   }
 
   getLastContactedDate(): DearestLastContactedDate {
     return this.lastContactedDate;
   }
 
-  setLastContactedDate(date: Date): void {
-    this.lastContactedDate = new DearestLastContactedDate(date);
-  }
-
   getBirthday(): DearestBirthday {
     return this.birthday;
-  }
-
-  setBirthday(birthday: string): void {
-    this.birthday = new DearestBirthday(birthday);
   }
 
   static issueNewDearestId(lastDearestId: number): number {

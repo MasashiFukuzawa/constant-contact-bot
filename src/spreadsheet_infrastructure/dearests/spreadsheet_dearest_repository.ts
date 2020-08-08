@@ -56,11 +56,7 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
     const bd = birthday || dearest.getBirthday().toString();
     this.sheet.getRange(dearestId + 1, 1, 1, this.lastCol)
       .setValues([[dearestId, dearest.getName().toString(), tId, npId, lastContactedDate, bd]]);
-    dearest.setTypeId(tId);
-    dearest.setNotificationPeriodId(npId);
-    dearest.setLastContactedDate(lastContactedDate);
-    dearest.setBirthday(bd);
-    return dearest;
+    return new Dearest(dearestId, dearest.getName().toString(), tId, npId, lastContactedDate, bd);
   }
 
   delete(dearest: Dearest): Dearest {
