@@ -24,7 +24,7 @@ describe('DearestCreateInteractor', () => {
     getProperty: jest.fn(() => 'xxxxxxx')
   })) as any;
 
-  UrlFetchApp.fetch = jest.fn();
+  const UrlFetchMock = UrlFetchApp.fetch = jest.fn();
 
   Moment.moment = jest.fn(() => ({
     format: jest.fn(() => '2020/8/1')
@@ -41,18 +41,31 @@ describe('DearestCreateInteractor', () => {
   const sdr = new SpreadsheetDearestRepository();
   const dcp = new DearestCreatePresenter();
   const dci = new DearestCreateInteractor(sdr, dcp);
+  const name = 'All Might';
+  const typeId = 5;
+  const notificationPeriodId = 4;
+  const lastContactedDate = new Date(2020, 8, 1);
+  const birthday = '6/10';
   const replyToken = 'some_reply_token';
 
   describe('SpreadsheetInfrastructure', () => {
     describe('#handle', () => {
-      it('sends a create message successfully', () => {
-        const name = 'All Might';
-        const typeId = 5;
-        const notificationPeriodId = 4;
-        const lastContactedDate = new Date(2020, 8, 1);
-        const birthday = '6/10';
-        dci.handle(replyToken, name, typeId, notificationPeriodId, lastContactedDate, birthday);
-        expect(UrlFetchApp.fetch).toHaveBeenCalledTimes(1);
+      describe('when valid', () => {
+        it('sends a create message successfully', () => {
+          jest.spyOn(SpreadsheetDearestRepository.prototype, 'findByName')
+            .mockReturnValue(new Dearest(1, 'Izuku Midoriya', 1, 3, new Date(2020, 1, 1), '7/15'));
+          dci.handle(replyToken, name, typeId, notificationPeriodId, lastContactedDate, birthday);
+          expect(UrlFetchApp.fetch).toHaveBeenCalledTimes(1);
+          UrlFetchMock.mockRestore();
+        });
+      });
+
+      describe('when invalid', () => {
+        it('sends a create message successfully', () => {
+          jest.spyOn(SpreadsheetDearestRepository.prototype, 'findByName').mockReturnValue(null);
+          dci.handle(replyToken, name, typeId, notificationPeriodId, lastContactedDate, birthday);
+          expect(UrlFetchApp.fetch).toHaveBeenCalledTimes(1);
+        });
       });
     });
   });

@@ -5,21 +5,19 @@ export class DearestPushOutputData {
 
   getDefaultMessage(name: string, term: number, unit: string): string {
     const period = `${term}${unit}`;
-    let translatedPeriod: string;
+    return `${this.translatedPeriod(period)}ぶりに ${name} と連絡を取ってみませんか？`;
+  }
+
+  private translatedPeriod(period: string): string {
     switch (period) {
       case '1week':
-        translatedPeriod = '1週間';
-        break;
+        return '1週間';
       case '3months':
-        translatedPeriod = '3ヶ月';
-        break;
+        return '3ヶ月';
       case '6months':
-        translatedPeriod = '半年';
-        break;
+        return '半年';
       case '1year':
-        translatedPeriod = '1年';
-          break;
+        return '1年';
     }
-    return `${translatedPeriod}ぶりに ${name} と連絡を取ってみませんか？`;
   }
 }

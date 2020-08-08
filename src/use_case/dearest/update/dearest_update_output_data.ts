@@ -13,7 +13,7 @@ Dearest {
 }`;
   }
 
-  getErrorMessage(name: string): string {
-    return `${name} という名前で登録されているDearestは存在しませんでした`;
+  getErrorMessage(validationErrorMessage: string | null, existenceErrorMessage: string | null): string {
+    return [validationErrorMessage, existenceErrorMessage].filter(e => !!e).join(', ');;
   }
 }

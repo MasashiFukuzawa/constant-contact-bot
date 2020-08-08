@@ -90,4 +90,24 @@ export class Dearest {
       return { isValid: false, errorMessage: e };
     }
   }
+
+  static isUnique(dearest: Dearest): { isUnique: boolean, errorMessage: string | null } {
+    try {
+      const name = dearest.getName().toString;
+      if (!!name) throw new Error(`Unique制約に引っ掛かりました。${name} は既に登録されています`);
+      return { isUnique: true, errorMessage: null };
+    } catch(e) {
+      return { isUnique: false, errorMessage: e };
+    }
+  }
+
+  static exists(dearest: Dearest): { isValid: boolean, errorMessage: string | null } {
+    try {
+      const name = dearest.getName().toString;
+      if (!name) throw new Error(`${name} という名前で登録されているDearestは存在しません`);
+      return { isValid: true, errorMessage: null };
+    } catch(e) {
+      return { isValid: false, errorMessage: e };
+    }
+  }
 }

@@ -17,5 +17,5 @@ export interface DearestRepositoryInterface {
     birthday: string | null,
     wantToUpdateLastContactedDate?: boolean
   ): Dearest;
-  delete(name: string): Dearest | null;
+  delete(dearest: Dearest): Dearest;
 }

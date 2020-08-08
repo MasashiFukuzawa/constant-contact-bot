@@ -18,16 +18,18 @@ export class DearestCreateInteractor implements DearestCreateUseCaseInterface {
     lastContactedDate: Date,
     birthday: string
   ): void {
-    const isUnique = !this.dearestRepository.findByName(name);
+    const dearest = this.dearestRepository.findByName(name);
+    const uniqueness = Dearest.isUnique(dearest);
     const validation = Dearest.isValid(name, typeId, notificationPeriodId, lastContactedDate, birthday);
-    const dearestCreateOutputData = new DearestCreateOutputData();
-    let outputData: string = null;
-    if (isUnique && validation.isValid) {
-      const dearest = this.dearestRepository.create(name, typeId, notificationPeriodId, lastContactedDate, birthday);
-      outputData = dearestCreateOutputData.getMessage(dearest);
-    } else {
-      outputData = dearestCreateOutputData.getErrorMessage(validation.errorMessage, name);
-    }
-    this.dearestCreatePresenter.replyMessage(replyToken, outputData);
+    const createdDearest = uniqueness.isUnique && validation.isValid ?
+      this.dearestRepository.create(name, typeId, notificationPeriodId, lastContactedDate, birthday) : null;
+
+    const outputData = new DearestCreateOutputData();
+    const message = createdDearest ?
+      outputData.getMessage(createdDearest) :
+      outputData.getErrorMessage(uniqueness.errorMessage, validation.errorMessage);
+
+    console.log(message);
+    this.dearestCreatePresenter.replyMessage(replyToken, message);
   }
 }

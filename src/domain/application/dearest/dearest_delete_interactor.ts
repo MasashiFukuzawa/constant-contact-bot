@@ -2,6 +2,7 @@ import { DearestDeleteUseCaseInterface } from "../../../use_case/dearest/delete/
 import { DearestRepositoryInterface } from "../../domain/dearest/dearest_repository_interface";
 import { DearestDeletePresenterInterface } from "../../../use_case/dearest/delete/dearest_delete_presenter_interface";
 import { DearestDeleteOutputData } from "../../../use_case/dearest/delete/dearest_delete_output_data";
+import { Dearest } from "../../domain/dearest/dearest";
 
 export class DearestDeleteInteractor implements DearestDeleteUseCaseInterface {
   constructor(
@@ -10,15 +11,13 @@ export class DearestDeleteInteractor implements DearestDeleteUseCaseInterface {
   ) {}
 
   handle(replyToken: string, name: string): void {
-    const existsName = !!this.dearestRepository.findByName(name);
-    const dearestDeleteOutputData = new DearestDeleteOutputData();
-    let outputData: string = null;
-    if (existsName) {
-      const dearest = this.dearestRepository.delete(name);
-      outputData = dearestDeleteOutputData.getMessage(dearest);
-    } else {
-      outputData = dearestDeleteOutputData.getErrorMessage(name);
-    }
-    this.dearestDeletePresenter.replyMessage(replyToken, outputData);
+    const dearest = this.dearestRepository.findByName(name);
+    const existence = Dearest.exists(dearest);
+    const deletedDearest = existence.isValid ? this.dearestRepository.delete(dearest): null;
+
+    const outputData = new DearestDeleteOutputData();
+    const message = deletedDearest ? outputData.getMessage(dearest) : existence.errorMessage;
+
+    this.dearestDeletePresenter.replyMessage(replyToken, message);
   }
 }
