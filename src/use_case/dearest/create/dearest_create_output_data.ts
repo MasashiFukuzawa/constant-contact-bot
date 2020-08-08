@@ -12,8 +12,4 @@ Dearest {
   birthday: ${!!dearest.getBirthday().toString() ? dearest.getBirthday().toString() : 'null'}
 }`;
   }
-
-  getErrorMessage(uniquenessErrorMessage: string | null, validationErrorMessage: string | null): string {
-    return [uniquenessErrorMessage, validationErrorMessage].filter(e => !!e).join(', ');
-  }
 }
