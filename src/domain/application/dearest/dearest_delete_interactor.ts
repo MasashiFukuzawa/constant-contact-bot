@@ -12,7 +12,7 @@ export class DearestDeleteInteractor implements DearestDeleteUseCaseInterface {
 
   handle(replyToken: string, name: string): void {
     const dearest = this.dearestRepository.findByName(name);
-    const existence = Dearest.exists(dearest);
+    const existence = dearest.existsName();
     const deletedDearest = existence.isValid ? this.dearestRepository.delete(dearest): null;
 
     const outputData = new DearestDeleteOutputData();
