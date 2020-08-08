@@ -52,6 +52,12 @@ export class Dearest {
     return this.birthday;
   }
 
+  isBirthday(): boolean {
+    const today: string = Moment.moment().format('M/D');
+    const birthday = this.getBirthday().toString();
+    return today === birthday;
+  }
+
   static issueNewDearestId(lastDearestId: number): number {
     return lastDearestId + 1;
   }

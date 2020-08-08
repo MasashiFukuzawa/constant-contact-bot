@@ -24,18 +24,22 @@ export class NotificationPeriod {
     return this.unit;
   }
 
-  static exists(
-    notificationPeriods: NotificationPeriod[],
+  shouldContact(lastContactedDate: Date): boolean {
+    const term = this.getTerm().toNumber();
+    const unit = this.getUnit().toString();
+    const now = Moment.moment();
+    const targetDate: Date = now.subtract(term, unit).toDate();
+    return lastContactedDate < targetDate;
+  }
+
+  static findTargetNotificationPeriod(
+    notificationPeriods: readonly NotificationPeriod[],
     notificationPeriodId: number
-  ): { isValid: boolean, errorMessage: string | null } {
-    try {
-      const targetNotificationPeriods = notificationPeriods.filter(e => e.getId().toNumber() === notificationPeriodId);
-      if (targetNotificationPeriods.length === 0) {
-        new Error(`notification_periodsテーブル中に、NotificationPeriodId = ${notificationPeriodId} は存在しません`);
-      }
-      return { isValid: true, errorMessage: null };
-    } catch(e) {
-      return { isValid: false, errorMessage: e };
+  ): NotificationPeriod {
+    const targetNotificationPeriod = notificationPeriods.filter(e => e.getId().toNumber() === notificationPeriodId)[0];
+    if (!targetNotificationPeriod) {
+      throw new Error(`notification_periodsテーブル中に、NotificationPeriodId = ${notificationPeriodId} は存在しません`);
     }
+    return targetNotificationPeriod;
   }
 }
