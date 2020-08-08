@@ -3,7 +3,7 @@ import { NotificationPeriod } from "../../../src/domain/domain/notification_peri
 import { DearestPushInteractor } from "../../../src/domain/application/dearest/dearest_push_interactor";
 import { SpreadsheetDearestRepository } from "../../../src/spreadsheet_infrastructure/dearests/spreadsheet_dearest_repository";
 import { SpreadsheetNotificationPeriodRepository } from "../../../src/spreadsheet_infrastructure/notification_periods/spreadsheet_notification_period_repository";
-import { DearestPushPresenter } from "../../../src/webhook_app/dearest/push/dearest_push_presenter";
+import { DearestPushPresenter } from "../../../src/webhook_app/dearest/presenter/dearest_push_presenter";
 
 describe('DearestPushInteractor', () => {
   Moment.moment = jest.fn(() => ({

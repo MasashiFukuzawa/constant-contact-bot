@@ -1,13 +1,13 @@
 import { DearestUpdateUseCaseInterface } from "../../../use_case/dearest/update/dearest_update_use_case_interface";
 import { DearestRepositoryInterface } from "../../domain/dearest/dearest_repository_interface";
-import { DearestUpdatePresenterInterface } from "../../../use_case/dearest/update/dearest_update_presenter_interface";
 import { DearestUpdateOutputData } from "../../../use_case/dearest/update/dearest_update_output_data";
+import { DearestReplyPresenterInterface } from "../../../use_case/dearest/dearest_reply_presenter_interface";
 import { Dearest } from "../../domain/dearest/dearest";
 
 export class DearestUpdateInteractor implements DearestUpdateUseCaseInterface {
   constructor(
     private readonly dearestRepository: DearestRepositoryInterface,
-    private readonly dearestUpdatePresenter: DearestUpdatePresenterInterface
+    private readonly dearestReplyPresenter: DearestReplyPresenterInterface
   ) {}
 
   handle(
@@ -29,6 +29,6 @@ export class DearestUpdateInteractor implements DearestUpdateUseCaseInterface {
     const message = updatedDearest ?
       outputData.getMessage(updatedDearest) : outputData.getErrorMessage(validation.errorMessage, existence.errorMessage);
 
-    this.dearestUpdatePresenter.replyMessage(replyToken, message);
+    this.dearestReplyPresenter.replyMessage(replyToken, message);
   }
 }

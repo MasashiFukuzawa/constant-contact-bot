@@ -1,9 +1,9 @@
-import { Line } from "../../../../constants/constants";
-import { LineViewComponent } from "../../../view_component/line_view_component";
+import { Line } from "../../../constants/constants";
+import { LinePushViewComponent } from "./view_component/line/line_component";
 
-export class LineDearestPushView {
+export class DearestLinePushView {
   pushMessages(data: { name: string, message: string }[]): void {
-    const line = new LineViewComponent()
+    const line = new LinePushViewComponent();
     const altText = this.getAltText();
     data.forEach(e => {
       const postData = line.getConfirmTypePushData(altText, e.message, this.getActions(e.name));

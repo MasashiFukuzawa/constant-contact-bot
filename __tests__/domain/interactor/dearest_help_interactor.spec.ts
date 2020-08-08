@@ -1,5 +1,5 @@
 import { DearestHelpInteractor } from "../../../src/domain/application/dearest/dearest_help_interactor";
-import { DearestHelpPresenter } from "../../../src/webhook_app/dearest/help/dearest_help_presenter";
+import { DearestReplyPresenter } from "../../../src/webhook_app/dearest/presenter/dearest_reply_presenter";
 
 describe('DearestHelpInteractor', () => {
   PropertiesService.getScriptProperties = jest.fn(() => ({
@@ -10,7 +10,7 @@ describe('DearestHelpInteractor', () => {
   describe('SpreadsheetInfrastructure', () => {
     describe('#handle', () => {
       it('sends a help message successfully', () => {
-        const dpp = new DearestHelpPresenter();
+        const dpp = new DearestReplyPresenter();
         const das = new DearestHelpInteractor(dpp);
         const replyToken = 'some_reply_token';
         das.handle(replyToken);

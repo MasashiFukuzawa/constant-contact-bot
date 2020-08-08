@@ -1,6 +1,6 @@
 import { DearestDeleteInteractor } from "../../../src/domain/application/dearest/dearest_delete_interactor";
-import { DearestDeletePresenter } from "../../../src/webhook_app/dearest/delete/dearest_delete_presenter";
 import { SpreadsheetDearestRepository } from "../../../src/spreadsheet_infrastructure/dearests/spreadsheet_dearest_repository";
+import { DearestReplyPresenter } from "../../../src/webhook_app/dearest/presenter/dearest_reply_presenter";
 import { Dearest } from "../../../src/domain/domain/dearest/dearest";
 
 describe('DearestDeleteInteractor', () => {
@@ -39,7 +39,7 @@ describe('DearestDeleteInteractor', () => {
     ]);
 
   const sdr = new SpreadsheetDearestRepository();
-  const ddp = new DearestDeletePresenter();
+  const ddp = new DearestReplyPresenter();
   const ddi = new DearestDeleteInteractor(sdr, ddp);
   const replyToken = 'some_reply_token';
 

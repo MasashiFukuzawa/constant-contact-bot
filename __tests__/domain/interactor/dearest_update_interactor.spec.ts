@@ -1,6 +1,6 @@
 import { DearestUpdateInteractor } from "../../../src/domain/application/dearest/dearest_update_interactor";
-import { DearestUpdatePresenter } from "../../../src/webhook_app/dearest/update/dearest_update_presenter";
 import { SpreadsheetDearestRepository } from "../../../src/spreadsheet_infrastructure/dearests/spreadsheet_dearest_repository";
+import { DearestReplyPresenter } from "../../../src/webhook_app/dearest/presenter/dearest_reply_presenter";
 import { Dearest } from "../../../src/domain/domain/dearest/dearest";
 
 describe('DearestUpdateInteractor', () => {
@@ -34,8 +34,8 @@ describe('DearestUpdateInteractor', () => {
     describe('#handle', () => {
       it('sends a update message successfully', () => {
         const sdr = new SpreadsheetDearestRepository();
-        const dup = new DearestUpdatePresenter();
-        const dui = new DearestUpdateInteractor(sdr, dup);
+        const drp = new DearestReplyPresenter();
+        const dui = new DearestUpdateInteractor(sdr, drp);
         const replyToken = 'some_reply_token';
         const name = 'Izuku Midoriya';
         const typeId = null;

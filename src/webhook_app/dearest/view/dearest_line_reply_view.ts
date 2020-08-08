@@ -1,9 +1,9 @@
-import { Line } from "../../../../constants/constants";
-import { LineViewComponent } from "../../../view_component/line_view_component";
+import { Line } from "../../../constants/constants";
+import { LineReplyViewComponent } from "./view_component/line/line_component";
 
-export class LineDearestDeleteView {
+export class DearestLineReplyView {
   replyMessage(replyToken: string, message: string): void {
-    const line = new LineViewComponent();
+    const line = new LineReplyViewComponent();
     const replyData = line.getReplyData(replyToken, message);
     UrlFetchApp.fetch(Line.REPLY_URL, line.getOptions(replyData));
   }

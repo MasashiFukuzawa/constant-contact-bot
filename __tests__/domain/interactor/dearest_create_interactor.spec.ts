@@ -1,6 +1,6 @@
 import { DearestCreateInteractor } from "../../../src/domain/application/dearest/dearest_create_interactor";
-import { DearestCreatePresenter } from "../../../src/webhook_app/dearest/create/dearest_create_presenter";
 import { SpreadsheetDearestRepository } from "../../../src/spreadsheet_infrastructure/dearests/spreadsheet_dearest_repository";
+import { DearestReplyPresenter } from "../../../src/webhook_app/dearest/presenter/dearest_reply_presenter";
 import { Dearest } from "../../../src/domain/domain/dearest/dearest";
 
 describe('DearestCreateInteractor', () => {
@@ -39,8 +39,8 @@ describe('DearestCreateInteractor', () => {
     ]);
 
   const sdr = new SpreadsheetDearestRepository();
-  const dcp = new DearestCreatePresenter();
-  const dci = new DearestCreateInteractor(sdr, dcp);
+  const drp = new DearestReplyPresenter();
+  const dci = new DearestCreateInteractor(sdr, drp);
   const name = 'All Might';
   const typeId = 5;
   const notificationPeriodId = 4;

@@ -1,5 +1,5 @@
-import { DearestCreateUseCaseInterface } from '../../../use_case/dearest/create/dearest_create_use_case_interface';
-import { DearestCreateInputData } from "../../../use_case/dearest/create/dearest_create_input_data";
+import { DearestCreateUseCaseInterface } from "../../../../use_case/dearest/create/dearest_create_use_case_interface";
+import { DearestCreateInputData } from "../../../../use_case/dearest/create/dearest_create_input_data";
 
 export class DearestCreateController {
   constructor(private readonly dearestCreateUseCase: DearestCreateUseCaseInterface) {}
