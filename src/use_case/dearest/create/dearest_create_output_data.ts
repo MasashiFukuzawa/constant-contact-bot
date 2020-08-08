@@ -13,7 +13,7 @@ Dearest {
 }`;
   }
 
-  getErrorMessage(uniquenessErrorMessage: string | null, validationErrorMessage: string | null): string {
-    return [uniquenessErrorMessage, validationErrorMessage].filter(e => !!e).join(', ');
+  getErrorMessage(validationErrorMessage: string | null, uniquenessErrorMessage: string | null): string {
+    return [validationErrorMessage, uniquenessErrorMessage].filter(e => !!e).join(', ');
   }
 }
