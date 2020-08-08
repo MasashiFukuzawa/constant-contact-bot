@@ -1,7 +1,7 @@
 import { Dearest } from "./dearest";
 
 export interface DearestRepositoryInterface {
-  getAll(): Dearest[];
+  getAll(): readonly Dearest[];
   findByName(name: string): Dearest | null;
   create(
     name: string,
