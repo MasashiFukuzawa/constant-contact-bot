@@ -82,18 +82,10 @@ describe('DearestRepository', () => {
   });
 
   describe('#delete', () => {
-    describe('when valid', () => {
-      it('deletes successfully', () => {
-        const deletedDearest = sdr.delete('Izuku Midoriya');
-        expect(deletedDearest).toStrictEqual(new Dearest(1, 'Izuku Midoriya', 1, 3, new Date(2020, 1, 1), '7/15'));
-      });
-    });
-
-    describe('when invalid', () => {
-      it('fails to delete', () => {
-        const deletedDearest = sdr.delete('All Might');
-        expect(deletedDearest).toBe(null);
-      });
+    it('deletes successfully', () => {
+      const dearest = new Dearest(1, 'Izuku Midoriya', 1, 3, new Date(2020, 1, 1), '7/15');
+      const deletedDearest = sdr.delete(dearest);
+      expect(deletedDearest).toStrictEqual(new Dearest(1, 'Izuku Midoriya', 1, 3, new Date(2020, 1, 1), '7/15'));
     });
   });
 });

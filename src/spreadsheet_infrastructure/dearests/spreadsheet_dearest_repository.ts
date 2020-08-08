@@ -63,14 +63,9 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
     return dearest;
   }
 
-  delete(name: string): Dearest | null {
-    const dearest = this.findByName(name);
-    if (dearest) {
-      this.sheet.getRange(dearest.getId().toNumber() + 1, 1, 1, this.lastCol).clear();
-      return dearest;
-    } else {
-      return null;
-    }
+  delete(dearest: Dearest): Dearest {
+    this.sheet.getRange(dearest.getId().toNumber() + 1, 1, 1, this.lastCol).clear();
+    return dearest;
   }
 
   private getSheet(): Sheet {

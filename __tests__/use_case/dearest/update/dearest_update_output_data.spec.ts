@@ -26,8 +26,24 @@ Dearest {
 
   describe('#getErrorMessage', () => {
     it('returns output data correctly', () => {
-      const result = dearestUpdateOutputData.getErrorMessage('All Might');
-      expect(result).toBe('All Might という名前で登録されているDearestは存在しませんでした');
+      const validationErrorMessage = 'DearestTypeIdが存在しません';
+      const existenceErrorMessage = 'All Might という名前で登録されているDearestは存在しません';
+      const result = dearestUpdateOutputData.getErrorMessage(validationErrorMessage, existenceErrorMessage);
+      expect(result).toBe('DearestTypeIdが存在しません, All Might という名前で登録されているDearestは存在しません');
+    });
+
+    it('returns output data correctly', () => {
+      const validationErrorMessage = 'DearestNameが存在しません';
+      const existenceErrorMessage = null;
+      const result = dearestUpdateOutputData.getErrorMessage(validationErrorMessage, existenceErrorMessage);
+      expect(result).toBe('DearestNameが存在しません');
+    });
+
+    it('returns output data correctly', () => {
+      const validationErrorMessage = null;
+      const existenceErrorMessage = 'All Might という名前で登録されているDearestは存在しません';
+      const result = dearestUpdateOutputData.getErrorMessage(validationErrorMessage, existenceErrorMessage);
+      expect(result).toBe('All Might という名前で登録されているDearestは存在しません');
     });
   });
 });

@@ -2,7 +2,7 @@ import { Dearest } from "../../../domain/domain/dearest/dearest";
 
 export class DearestCreateOutputData {
   getMessage(dearest: Dearest): string {
-    return `${dearest.getName().toString()} の情報を登録しました。
+    return `${dearest.getName().toString()} の情報を登録しました
 Dearest {
   id: ${dearest.getId().toNumber()},
   name: ${dearest.getName().toString()},
@@ -13,11 +13,7 @@ Dearest {
 }`;
   }
 
-  getErrorMessage(errorMessage: string, name: string): string {
-    if (errorMessage) {
-      return `Validation ${errorMessage}`;
-    } else {
-      return `Unique制約に引っ掛かりました。${name} は既に登録されています。`;
-    }
+  getErrorMessage(uniquenessErrorMessage: string | null, validationErrorMessage: string | null): string {
+    return [uniquenessErrorMessage, validationErrorMessage].filter(e => !!e).join(', ');
   }
 }
