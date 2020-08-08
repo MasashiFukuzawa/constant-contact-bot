@@ -1,7 +1,7 @@
 import { DearestPushUseCaseInterface } from "../../../use_case/dearest/push/dearest_push_use_case_interface";
 import { DearestRepositoryInterface } from "../../domain/dearest/dearest_repository_interface";
 import { NotificationPeriodRepositoryInterface } from "../../domain/notification_period/notification_period_repository_interface";
-import { DearestPushPresenterInterface } from "../../../use_case/dearest/push/dearest_push_presenter_interface";
+import { DearestPushPresenterInterface } from "../../../use_case/dearest/dearest_push_presenter_interface";
 import { DearestPushOutputData } from "../../../use_case/dearest/push/dearest_push_output_data";
 import { Dearest } from "../../domain/dearest/dearest";
 import { NotificationPeriod } from "../../domain/notification_period/notification_period";

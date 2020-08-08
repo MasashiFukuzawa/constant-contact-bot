@@ -1,10 +1,8 @@
-import { LineDearestPushView } from "./views/line_dearest_push_view";
+import { PushSubscriber } from "../view/subscriber/subscribers";
 
 export class DearestPushViewModel {
-  private readonly subscribers = [new LineDearestPushView()];
-
   pushMessages(data: { name: string, message: string }[]): void {
-    this.subscribers.forEach(e => {
+    PushSubscriber.subscribers.forEach(e => {
       e.pushMessages(data);
       console.log(`${e.getProviderName()} にメッセージを送信しました`);
     });

@@ -1,7 +1,6 @@
-import { Line } from '../../constants/constants'
-import { LineAuthorization } from '../authorization/line_authorization'
+import { LineAuthorization } from "../../../../authorization/line_authorization";
 
-export class LineViewComponent {
+class LineBaseComponent {
   getOptions(data: object): object {
     return {
       method: "post",
@@ -9,7 +8,9 @@ export class LineViewComponent {
       payload: JSON.stringify(data)
     };
   }
+}
 
+export class LinePushViewComponent extends LineBaseComponent {
   getConfirmTypePushData(altText: string, text: string, actions: object[]): object {
     return {
       to: new LineAuthorization().getUserId(),
@@ -24,7 +25,9 @@ export class LineViewComponent {
       }]
     };
   }
+}
 
+export class LineReplyViewComponent extends LineBaseComponent {
   getReplyData(replyToken: string, message: string): object {
     return {
       replyToken: replyToken,

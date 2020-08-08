@@ -1,16 +1,13 @@
 import { SpreadsheetDearestRepository } from "../../spreadsheet_infrastructure/dearests/spreadsheet_dearest_repository";
-import { DearestHelpController } from "../../webhook_app/dearest/help/dearest_help_controller";
-import { DearestHelpPresenter } from "../../webhook_app/dearest/help/dearest_help_presenter";
-import { DearestHelpInteractor } from "../../domain/application/dearest/dearest_help_interactor";
-import { DearestUpdateController } from "../../webhook_app/dearest/update/dearest_update_controller";
-import { DearestUpdatePresenter } from "../../webhook_app/dearest/update/dearest_update_presenter";
+import { DearestReplyPresenter } from "../../webhook_app/dearest/presenter/dearest_reply_presenter";
 import { DearestUpdateInteractor } from "../../domain/application/dearest/dearest_update_interactor";
-import { DearestCreatePresenter } from "../../webhook_app/dearest/create/dearest_create_presenter";
+import { DearestUpdateController } from "../../webhook_app/dearest/controller/update/dearest_update_controller";
+import { DearestHelpInteractor } from "../../domain/application/dearest/dearest_help_interactor";
+import { DearestHelpController } from "../../webhook_app/dearest/controller/help/dearest_help_controller";
 import { DearestCreateInteractor } from "../../domain/application/dearest/dearest_create_interactor";
-import { DearestCreateController } from "../../webhook_app/dearest/create/dearest_create_controller";
-import { DearestDeletePresenter } from "../../webhook_app/dearest/delete/dearest_delete_presenter";
+import { DearestCreateController } from "../../webhook_app/dearest/controller/create/dearest_create_controller";
 import { DearestDeleteInteractor } from "../../domain/application/dearest/dearest_delete_interactor";
-import { DearestDeleteController } from "../../webhook_app/dearest/delete/dearest_delete_controller";
+import { DearestDeleteController } from "../../webhook_app/dearest/controller/delete/dearest_delete_controller";
 
 function doPost(e: any): void {
   const json = JSON.parse(e.postData.contents);
@@ -45,37 +42,33 @@ class DoPost {
   }
 
   execDearestUpdateAction(replyToken: string, eventType: string, str: string): void {
-    const dr = this.initDearestRepository();
-    const dup = new DearestUpdatePresenter();
-    const dui = new DearestUpdateInteractor(dr, dup);
+    const dr = new SpreadsheetDearestRepository();
+    const drp = new DearestReplyPresenter();
+    const dui = new DearestUpdateInteractor(dr, drp);
     const dearestUpdateController = new DearestUpdateController(dui);
     dearestUpdateController.update(replyToken, eventType, str);
   }
 
   private execDearestHelpAction(replyToken: string): void {
-    const dhp = new DearestHelpPresenter();
-    const dhi = new DearestHelpInteractor(dhp);
+    const drp = new DearestReplyPresenter();
+    const dhi = new DearestHelpInteractor(drp);
     const dearestHelpController = new DearestHelpController(dhi);
     dearestHelpController.help(replyToken);
   }
 
   private execDearestCreateAction(replyToken: string, text: string): void {
-    const dr = this.initDearestRepository();
-    const dcp = new DearestCreatePresenter();
-    const dci = new DearestCreateInteractor(dr, dcp);
+    const dr = new SpreadsheetDearestRepository();
+    const drp = new DearestReplyPresenter();
+    const dci = new DearestCreateInteractor(dr, drp);
     const dearestCreateController = new DearestCreateController(dci);
     dearestCreateController.create(replyToken, text);
   }
 
   private execDearestDeleteAction(replyToken: string, str: string): void {
-    const dr = this.initDearestRepository();
-    const ddp = new DearestDeletePresenter();
-    const ddi = new DearestDeleteInteractor(dr, ddp);
+    const dr = new SpreadsheetDearestRepository();
+    const drp = new DearestReplyPresenter();
+    const ddi = new DearestDeleteInteractor(dr, drp);
     const dearestDeleteController = new DearestDeleteController(ddi);
     dearestDeleteController.delete(replyToken, str);
-  }
-
-  private initDearestRepository(): SpreadsheetDearestRepository {
-    return new SpreadsheetDearestRepository();
   }
 }
