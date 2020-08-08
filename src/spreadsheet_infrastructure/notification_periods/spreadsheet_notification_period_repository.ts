@@ -4,7 +4,7 @@ import Spreadsheet = GoogleAppsScript.Spreadsheet.Spreadsheet;
 import Sheet = GoogleAppsScript.Spreadsheet.Sheet;
 
 export class SpreadsheetNotificationPeriodRepository implements NotificationPeriodRepositoryInterface {
-  getAll(): NotificationPeriod[] {
+  getAll(): readonly NotificationPeriod[] {
     const ss: Spreadsheet = SpreadsheetApp.openById(
       PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID")
     );
@@ -16,7 +16,7 @@ export class SpreadsheetNotificationPeriodRepository implements NotificationPeri
     return this.map(fullData);
   }
 
-  private map(fullData: any[][]): NotificationPeriod[] {
+  private map(fullData: any[][]): readonly NotificationPeriod[] {
     return fullData.map(e => {
       return new NotificationPeriod(e[0], e[1], e[2]);
     });

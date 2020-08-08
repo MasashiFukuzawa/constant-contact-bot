@@ -4,7 +4,7 @@ import Spreadsheet = GoogleAppsScript.Spreadsheet.Spreadsheet;
 import Sheet = GoogleAppsScript.Spreadsheet.Sheet;
 
 export class SpreadsheetTypeRepository implements TypeRepositoryInterface {
-  getAll(): Type[] {
+  getAll(): readonly Type[] {
     const ss: Spreadsheet = SpreadsheetApp.openById(
       PropertiesService.getScriptProperties().getProperty("SPREAD_SHEET_ID")
     );
@@ -16,7 +16,7 @@ export class SpreadsheetTypeRepository implements TypeRepositoryInterface {
     return this.map(fullData);
   }
 
-  private map(fullData: any[][]): Type[] {
+  private map(fullData: any[][]): readonly Type[] {
     return fullData.map(e => {
       return new Type(e[0], e[1]);
     });

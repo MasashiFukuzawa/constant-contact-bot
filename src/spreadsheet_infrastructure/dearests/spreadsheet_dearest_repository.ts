@@ -7,7 +7,7 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
   private readonly sheet: Sheet;
   private readonly lastRow: number;
   private readonly lastCol: number;
-  private readonly fullData: Dearest[];
+  private readonly fullData: readonly Dearest[];
   constructor() {
     this.sheet = this.getSheet();
     this.lastRow = this.getLastRow();
@@ -15,7 +15,7 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
     this.fullData = this.getAll();
   }
 
-  getAll(): Dearest[] {
+  getAll(): readonly Dearest[] {
     if (this.fullData) return this.fullData;
     const rawData = this.sheet.getRange(2, 1, this.lastRow - 1, this.lastCol).getValues();
     const fullData = rawData.filter(e => !!e[0]);
@@ -86,7 +86,7 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
     return this.sheet.getLastColumn();
   }
 
-  private map(fullData: any[][]): Dearest[] {
+  private map(fullData: any[][]): readonly Dearest[] {
     return fullData.map(e => {
       return new Dearest(e[0], e[1], e[2], e[3], e[4], e[5]);
     });
