@@ -23,7 +23,7 @@ export class DearestUpdateInteractor implements DearestUpdateUseCaseInterface {
     const existence = dearest.existsName();
 
     const updatedDearest = validation.isValid && existence.isValid ?
-      this.dearestRepository.update(dearest, typeId, notificationPeriodId, birthday): null;
+      this.dearestRepository.update(dearest, typeId, notificationPeriodId, birthday) : null;
 
     const outputData = new DearestUpdateOutputData();
     const message = updatedDearest ?

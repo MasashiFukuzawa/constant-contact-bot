@@ -60,7 +60,7 @@ export class Dearest {
 
   existsName(): { isValid: boolean, errorMessage: string | null } {
     try {
-      const name = this.getName().toString;
+      const name = this?.getName()?.toString;
       if (!name) throw new Error(`${name} という名前で登録されているDearestは存在しません`);
       return { isValid: true, errorMessage: null };
     } catch(e) {
