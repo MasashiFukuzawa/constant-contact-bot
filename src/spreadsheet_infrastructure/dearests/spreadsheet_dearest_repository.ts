@@ -36,10 +36,9 @@ export class SpreadsheetDearestRepository implements DearestRepositoryInterface 
     lastContactedDate: Date,
     birthday: string
   ): Dearest {
-    const id = Dearest.issueNewDearestId(this.lastRow);
-    this.sheet.getRange(id + 1, 1, 1, this.lastCol)
-      .setValues([[id, name, typeId, notificationPeriodId, lastContactedDate, birthday]]);
-    return new Dearest(id, name, typeId, notificationPeriodId, lastContactedDate, birthday);
+    this.sheet.getRange(this.lastRow + 1, 1, 1, this.lastCol)
+      .setValues([[this.lastRow, name, typeId, notificationPeriodId, lastContactedDate, birthday]]);
+    return new Dearest(this.lastRow, name, typeId, notificationPeriodId, lastContactedDate, birthday);
   }
 
   update(
