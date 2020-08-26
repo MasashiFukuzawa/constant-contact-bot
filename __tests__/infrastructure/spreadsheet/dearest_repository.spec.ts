@@ -4,7 +4,7 @@ import { Dearest } from '../../../src/domain/domain/dearest/dearest';
 describe('DearestRepository', () => {
   SpreadsheetApp.openById = jest.fn(() => ({
     getSheetByName: jest.fn(() => ({
-      getLastRow: jest.fn(() => 4),
+      getLastRow: jest.fn(() => 5),
       getLastColumn: jest.fn(() => 5),
       getRange: jest.fn(() => ({
         getValues: jest.fn(() => [

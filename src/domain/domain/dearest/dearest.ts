@@ -72,10 +72,6 @@ export class Dearest {
     return !this.getBirthday();
   }
 
-  static issueNewDearestId(lastDearestId: number): number {
-    return lastDearestId + 1;
-  }
-
   static isUnique(dearest: Dearest): { isValid: boolean, errorMessage: string | null } {
     try {
       if (dearest) throw new Error(`Unique制約に引っ掛かりました。${dearest.getName().toString()} は既に登録されています`);
